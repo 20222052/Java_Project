@@ -1,0 +1,89 @@
+@font-face {
+    font-family: "flaticon";
+    src: url("../fonts/flaticon.eot");
+    src: url("../fonts/flaticond41d.eot?#iefix") format("embedded-opentype"),
+        url("../fonts/flaticon.woff2") format("woff2"),
+        url("../fonts/flaticon.woff") format("woff"),
+        url("../fonts/flaticon.ttf") format("truetype"),
+        url("../fonts/flaticon.svg#Flaticon") format("svg");
+}
+i[class^="flaticon-"]:before, i[class*=" flaticon-"]:before {
+    font-family: flaticon !important;
+    font-style: normal;
+    font-weight: normal !important;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.flaticon-gift-1:before {
+    content: "\f101";
+}
+.flaticon-online-shop:before {
+    content: "\f102";
+}
+.flaticon-quotation:before {
+    content: "\f103";
+}
+.flaticon-next:before {
+    content: "\f104";
+}
+.flaticon-shopping-basket:before {
+    content: "\f105";
+}
+.flaticon-search:before {
+    content: "\f106";
+}
+.flaticon-avatar:before {
+    content: "\f107";
+}
+.flaticon-account:before {
+    content: "\f108";
+}
+.flaticon-meat:before {
+    content: "\f109";
+}
+.flaticon-meat-1:before {
+    content: "\f10a";
+}
+.flaticon-food:before {
+    content: "\f10b";
+}
+.flaticon-hamburguer:before {
+    content: "\f10c";
+}
+.flaticon-chicken:before {
+    content: "\f10d";
+}
+.flaticon-chicken-1:before {
+    content: "\f10e";
+}
+.flaticon-turkey-leg:before {
+    content: "\f10f";
+}
+.flaticon-chicken-wings:before {
+    content: "\f110";
+}
+.flaticon-right-arrow:before {
+    content: "\f111";
+}
+.flaticon-heart:before {
+    content: "\f112";
+}
+.flaticon-meat-2:before {
+    content: "\f113";
+}
+.flaticon-call:before {
+    content: "\f114";
+}
+.flaticon-email:before {
+    content: "\f115";
+}
+.flaticon-location:before {
+    content: "\f116";
+}
+.flaticon-location-1:before {
+    content: "\f117";
+}
