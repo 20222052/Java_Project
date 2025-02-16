@@ -1,5 +1,5 @@
 <div th:fragment="content">
-        <table class="table table-hover">
+        <table class="table table-hover" >
             <thead>
             <tr>
                 <th>ID</th>
@@ -9,12 +9,11 @@
                 <th>Address</th>
                 <th>Gender</th>
                 <th>Created At</th>
-                <th>Actions</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="cus : ${customers}">
-                <td th:text="${cus}"></td>
                 <td th:text="${cus.id}"></td>
                 <td th:text="${cus.name}"></td>
                 <td th:text="${cus.email}"></td>
@@ -23,8 +22,8 @@
                 <td th:text="${cus.gender == 0 ? 'Nu' : 'Nam'}"></td>
                 <td th:text="${#dates.format(cus.createdAt, 'dd/MM/yyyy')}"></td>
                 <td>
-                    <a th:href="@{/customers/edit/{id}(id=${customer.id})}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
-                    <form th:action="@{/customers/delete/{id}(id=${customer.id})}" method="post" style="display:inline;">
+                    <a th:href="@{/admin/customer/edit/{id}(id=${cus.id})}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                    <form th:action="@{/admin/customer/delete/{id}(id=${cus.id})}" method="post" style="display:inline;">
                         <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure want to delete it?')"><i class="fa fa-trash"></i></button>
                     </form>
                 </td>

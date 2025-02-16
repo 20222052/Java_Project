@@ -169,7 +169,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <th:block th:replace="|admin/${content}.html| :: content"></th:block>
+        <th:block th:replace="|admin/${page ?: 'customer'}/${content ?: 'index'}.html| :: content"></th:block>
     </section>
 
     <!-- Main content -->
@@ -212,13 +212,13 @@
     <strong>Copyright &copy; 2014-2015 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
     reserved.
   </footer>
-</div>
+
 <script th:src="@{/ad_assets/plugins/jQuery/jQuery-2.2.0.min.js}"></script>
 <script th:src="@{/ad_assets/bootstrap/js/bootstrap.min.js}"></script>
 <script th:src="@{/ad_assets/plugins/slimScroll/jquery.slimscroll.min.js}"></script>
 <script th:src="@{/ad_assets/plugins/fastclick/fastclick.js}"></script>
 <script th:src="@{/ad_assets/dist/js/app.min.js}"></script>
 <script th:src="@{/ad_assets/dist/js/demo.js}"></script>
-
+</div>
 </body>
 </html>

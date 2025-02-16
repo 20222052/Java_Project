@@ -1,0 +1,50 @@
+<div th:fragment="content">
+    <div class="row">
+    <form th:action="@{/admin/customer/save}" method="POST" enctype="multipart/form-data">
+        <div class="col-md-12">
+            <div class="form-group">
+                <label for="name">Customer name</label>
+                <input type="text" id="name" name="name" class="form-control" placeholder="Input field" >
+            </div>
+
+            <div class="form-group">
+                <label for="email">Customer Email</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="Input field" >
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Customer Phone</label>
+                <input type="text" id="phone" name="phone" class="form-control" placeholder="Input field" >
+            </div>
+
+            <div class="form-group">
+                <label for="address">Customer Address</label>
+                <input type="text" id="address" name="address" class="form-control" placeholder="Input field" >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Customer Password</label>
+                <input type="password" id="password" name="password" class="form-control" placeholder="Input field">
+            </div>
+
+            <div class="form-group">
+                <label>Customer Gender</label>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="gender" value="1" th:checked="${customer?.gender == 1}" />
+                        Nam
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="gender" value="0" th:checked="${customer?.gender == 0}" />
+                        Nữ
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+        </div>
+    </form>
+</div>
+</div>
