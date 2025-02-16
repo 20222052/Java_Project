@@ -17,7 +17,6 @@
 
 <body class="skin-blue sidebar-mini">
 <div class="wrapper">
-
   <header class="main-header">
     <!-- Logo -->
     <a th:href="@{/ad_assets/index2.html}" class="logo">
@@ -170,10 +169,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        <th:block th:insert="|admin/${content}.html| :: content"></th:block>
-      </h1>
-
+        <th:block th:replace="|admin/${content}.html| :: content"></th:block>
     </section>
 
     <!-- Main content -->
