@@ -1,7 +1,6 @@
 package com.example.demo.controller.admin;
 
-
-import com.example.demo.model.entity.customers;
+import com.example.demo.model.entity.Customer;
 import com.example.demo.service.CustomersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,7 +23,7 @@ public class CustomerController {
 
     @GetMapping
     public String index(Model model) {
-        List<customers> customers = customersService.findAll();
+        List<Customer> customers = customersService.findAll();
         model.addAttribute("customers", customers);
         model.addAttribute("content1" , "List Customer");
         return "master/main_admin";
@@ -38,9 +37,10 @@ public class CustomerController {
     }
 
     @PostMapping("/save")
-    public String saveCustomer(@ModelAttribute("customer") customers customer,BindingResult result ,RedirectAttributes redirectAttributes) {
+    public String saveCustomer(@ModelAttribute("customer") Customer customer, Model model, BindingResult result , RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
-            return "/admin/customer/create";
+            model.addAttribute("content" , "create");
+            return "master/main_admin";
         }
 
         customersService.save(customer);
@@ -57,6 +57,27 @@ public class CustomerController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Error deleting customer!");
         }
+
+        return "redirect:/admin/customer";
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable int id, Model model) {
+        model.addAttribute("content1" , "Edit Customer");
+        model.addAttribute("content" , "edit");
+        model.addAttribute("customer" , customersService.getById(id));
+        return "master/main_admin";
+    }
+
+    @PostMapping("/update")
+    public String updateCustomer(@ModelAttribute("customer") Customer customer, Model model, BindingResult result , RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()) {
+            model.addAttribute("content" , "edit");
+            return "master/main_admin";
+        }
+
+        customersService.save(customer);
+        redirectAttributes.addFlashAttribute("success", "Customer edit successfully!");
 
         return "redirect:/admin/customer";
     }

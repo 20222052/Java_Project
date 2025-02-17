@@ -1,6 +1,6 @@
 package com.example.demo.service.Impl;
 
-import com.example.demo.model.entity.customers;
+import com.example.demo.model.entity.Customer;
 import com.example.demo.repository.CustomersRepository;
 import com.example.demo.service.CustomersService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,24 +11,23 @@ import java.util.List;
 public class CustomersServiceImpl  implements CustomersService {
     @Autowired
     private CustomersRepository customersRepository;
-
     @Override
-    public List<customers> findAll() {
+    public List<Customer> findAll() {
         return customersRepository.findAll();
     }
 
     @Override
-    public customers getById(Integer id) {
+    public Customer getById(Integer id) {
         return customersRepository.getById(id);
     }
 
     @Override
-    public void save(customers customer) {
+    public void save(Customer customer) {
         customersRepository.save(customer);
     }
 
     @Override
-    public void delete(customers customer) {
+    public void delete(Customer customer) {
         customersRepository.delete(customer);
     }
 
@@ -38,7 +37,7 @@ public class CustomersServiceImpl  implements CustomersService {
     }
 
     @Override
-    public void update(customers customer) {
+    public void update(Customer customer) {
         customersRepository.save(customer);
     }
 

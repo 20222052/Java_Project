@@ -1,9 +1,8 @@
 <div th:fragment="content">
     <div class="row">
-        <form th:action="@{/admin/customer/save}" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
-
+        <form th:action="@{/admin/customer/update}" method="POST" enctype="multipart/form-data">
             <div class="col-md-12">
+                <input type="hidden" name="id" th:value="${customer?.id}" style="display: none">
                 <div class="form-group">
                     <label for="name">Customer name</label>
                     <input type="text" id="name" name="name" class="form-control" placeholder="Input field" th:value="${customer?.name}">
@@ -45,7 +44,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Update</button>
             </div>
         </form>
     </div>
