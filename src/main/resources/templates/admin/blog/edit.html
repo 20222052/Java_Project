@@ -1,0 +1,36 @@
+<!-- edit.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Edit Blog</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h2>Edit Blog</h2>
+<form th:action="@{/blogs/{id}(id=${blog.id})}" method="post" enctype="multipart/form-data">
+  <input type="hidden" name="_method" value="put">
+
+  <label>Blog Name:</label>
+  <input type="text" name="name" th:value="${blog.name}" required>
+
+  <label>Blog Link:</label>
+  <input type="text" name="link" th:value="${blog.link}" required>
+
+  <label>Blog Description:</label>
+  <textarea name="description" th:text="${blog.description}" required></textarea>
+
+  <label>Blog Position:</label>
+  <input type="text" name="position" th:value="${blog.position}">
+
+  <label>Blog Image:</label>
+  <input type="file" name="img" accept="image/*">
+  <img th:src="@{'/uploads/blog/' + ${blog.image}}" width="100">
+
+  <label>Status:</label>
+  <input type="radio" name="status" value="1" th:checked="${blog.status}"> Publish
+  <input type="radio" name="status" value="0" th:checked="${!blog.status}"> Hidden
+
+  <button type="submit">Save</button>
+</form>
+</body>
+</html>

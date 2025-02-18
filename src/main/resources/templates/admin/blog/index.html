@@ -1,0 +1,63 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Blog Manager</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h2>Blog Manager</h2>
+
+    <form th:action="@{/blogs}" method="get" class="form-inline mb-3">
+        <input type="text" name="keyword" class="form-control" placeholder="Search by name">
+        <select name="order" class="form-control mx-2">
+            <option value="">Default</option>
+            <option value="id-asc">Sort by ID Asc</option>
+            <option value="id-desc">Sort by ID Desc</option>
+            <option value="name-asc">Sort by Name Asc</option>
+            <option value="name-desc">Sort by Name Desc</option>
+            <option value="created_at-asc">Sort by Date Asc</option>
+            <option value="created_at-desc">Sort by Date Desc</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Search</button>
+        <a href="/blogs/create" class="btn btn-success ml-auto">Add New</a>
+    </form>
+
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Link</th>
+            <th>Image</th>
+            <th>Description</th>
+            <th>Position</th>
+            <th>Status</th>
+            <th>Created At</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="blog : ${blogs}">
+            <td th:text="${blog.id}"></td>
+            <td th:text="${blog.name}"></td>
+            <td><a th:href="${blog.link}" th:text="${blog.link}"></a></td>
+            <td><img th:src="@{'/uploads/' + ${blog.image}}" width="50"></td>
+            <td th:text="${blog.description}"></td>
+            <td th:text="${blog.position}"></td>
+            <td th:text="${blog.status ? 'Publish' : 'Hidden'}"></td>
+            <td th:text="${blog.createdAt}"></td>
+            <td>
+                <a th:href="@{'/blogs/edit/' + ${blog.id}}" class="btn btn-sm btn-primary">Edit</a>
+                <form th:action="@{'/blogs/delete/' + ${blog.id}}" method="post" style="display:inline;">
+                    <input type="hidden" name="_method" value="delete">
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

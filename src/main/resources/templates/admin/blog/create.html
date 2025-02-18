@@ -1,0 +1,33 @@
+<!-- create.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Create New Blog</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h2>Create a New Blog</h2>
+<form th:action="@{/blogs}" method="post" enctype="multipart/form-data">
+  <label>Blog Name:</label>
+  <input type="text" name="name" required>
+
+  <label>Blog Link:</label>
+  <input type="text" name="link" required>
+
+  <label>Blog Description:</label>
+  <textarea name="description" required></textarea>
+
+  <label>Blog Position:</label>
+  <input type="text" name="position">
+
+  <label>Blog Image:</label>
+  <input type="file" name="img" accept="image/*">
+
+  <label>Status:</label>
+  <input type="radio" name="status" value="1"> Publish
+  <input type="radio" name="status" value="0" checked> Hidden
+
+  <button type="submit">Save</button>
+</form>
+</body>
+</html>

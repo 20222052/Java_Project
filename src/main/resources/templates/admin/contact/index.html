@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Contact Manager</title>
+</head>
+<body>
+<h1>Contact List</h1>
+<a href="/contacts/create">Create New Contact</a>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Subject</th>
+        <th>Message</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    <tr th:each="contact : ${contacts}">
+        <td th:text="${contact.id}"></td>
+        <td th:text="${contact.name}"></td>
+        <td th:text="${contact.email}"></td>
+        <td th:text="${contact.subject}"></td>
+        <td th:text="${contact.message}"></td>
+        <td th:text="${contact.status == 0 ? 'Unread' : 'Read'}"></td>
+        <td>
+            <a th:href="@{/contacts/edit/{id}(id=${contact.id})}">Edit</a>
+            <form th:action="@{/contacts/delete/{id}(id=${contact.id})}" method="post" style="display:inline;">
+                <button type="submit">Delete</button>
+            </form>
+            <form th:action="@{/contacts/update-status/{id}(id=${contact.id})}" method="post" style="display:inline;">
+                <input type="hidden" name="status" value="1">
+                <button type="submit">Mark as Read</button>
+            </form>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
