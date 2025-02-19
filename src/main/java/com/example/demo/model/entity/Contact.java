@@ -32,5 +32,6 @@ public class Contact {
 
     @Column(name = "updated_at")
     private LocalDate updatedAt;
+
 }
 

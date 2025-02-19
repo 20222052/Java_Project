@@ -1,12 +1,15 @@
 package com.example.demo.model.entity;
 
+import com.example.demo.model.Order;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "customers")
@@ -46,5 +49,7 @@ public class Customer {
     @Column()
     private Date updatedAt;
 
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Comment> comment = new ArrayList<>();
 
 }

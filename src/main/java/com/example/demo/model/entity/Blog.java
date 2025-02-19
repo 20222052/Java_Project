@@ -3,6 +3,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "blogs")
@@ -39,4 +41,7 @@ public class Blog {
 
     @Column(name = "updated_at")
     private LocalDate updatedAt;
+
+    @OneToMany(mappedBy = "blog", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Comment> comment = new ArrayList<>();
 }
