@@ -1,40 +1,55 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Contact Manager</title>
-</head>
-<body>
-<h1>Contact List</h1>
-<a href="/contacts/create">Create New Contact</a>
-
-<table border="1">
-    <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Subject</th>
-        <th>Message</th>
-        <th>Status</th>
-        <th>Actions</th>
-    </tr>
-    <tr th:each="contact : ${contacts}">
-        <td th:text="${contact.id}"></td>
-        <td th:text="${contact.name}"></td>
-        <td th:text="${contact.email}"></td>
-        <td th:text="${contact.subject}"></td>
-        <td th:text="${contact.message}"></td>
-        <td th:text="${contact.status == 0 ? 'Unread' : 'Read'}"></td>
-        <td>
-            <a th:href="@{/contacts/edit/{id}(id=${contact.id})}">Edit</a>
-            <form th:action="@{/contacts/delete/{id}(id=${contact.id})}" method="post" style="display:inline;">
-                <button type="submit">Delete</button>
-            </form>
-            <form th:action="@{/contacts/update-status/{id}(id=${contact.id})}" method="post" style="display:inline;">
-                <input type="hidden" name="status" value="1">
-                <button type="submit">Mark as Read</button>
-            </form>
-        </td>
-    </tr>
-</table>
-</body>
-</html>
+<div th:fragment="content">
+    <form action="" method="GET" class="form-inline">
+        <div class="form-group">
+            <label for="keyword">Name</label>
+            <input type="text" class="form-control" name="keyword" placeholder="Input field" th:value="${keyword}">
+        </div>
+        <div class="form-group">
+            <label for="order">Sort</label>
+            <select name="order" class="form-control">
+                <option value="">Default</option>
+                <option value="id-asc" th:selected="${order == 'id-asc'}">Sort ascending by ID</option>
+                <option value="id-desc" th:selected="${order == 'id-desc'}">Sort descending by ID</option>
+                <option value="name-asc" th:selected="${order == 'name-asc'}">Sort ascending by name</option>
+                <option value="name-desc" th:selected="${order == 'name-desc'}">Sort descending by name</option>
+                <option value="created_at-asc" th:selected="${order == 'created_at-asc'}">Sort ascending by created_at</option>
+                <option value="created_at-desc" th:selected="${order == 'created_at-desc'}">Sort descending by created_at</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+    </form>
+    <br>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Subject</th>
+            <th>Message</th>
+            <th>Status</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="contact : ${contacts}">
+            <td th:text="${contact.id}"></td>
+            <td th:text="${contact.name}"></td>
+            <td th:text="${contact.email}"></td>
+            <td th:text="${contact.subject}"></td>
+            <td th:text="${contact.message}"></td>
+            <td th:text="${contact.status == 0 ? 'Unread' : 'Read'}"></td>
+            <td>
+                <form th:action="@{/admin/contact/delete/{id}(id=${contact.id})}" method="post" style="display:inline;">
+                    <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure want to delete it?')">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </form>
+                <form th:if="${contact.status == 0}" th:action="@{/admin/contact/update-status/{id}(id=${contact.id})}" method="post" style="display:inline;">
+                    <button class="btn btn-sm btn-primary"><i class="fa fa-eye"></i></button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

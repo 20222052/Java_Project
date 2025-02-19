@@ -4,12 +4,9 @@ import com.example.demo.model.entity.Blog;
 import com.example.demo.repository.BlogRepository;
 import com.example.demo.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BlogServiceImpl implements BlogService {
@@ -18,27 +15,22 @@ public class BlogServiceImpl implements BlogService {
     private BlogRepository blogRepository;
 
     @Override
-    public List<Blog> getAllBlogs() {
+    public List<Blog> findAll() {
         return blogRepository.findAll();
     }
 
     @Override
-    public Page<Blog> getBlogsPaginated(Pageable pageable) {
-        return blogRepository.findAll(pageable);
+    public Blog getById(int id) {
+        return blogRepository.findById(id).orElse(null);
     }
 
     @Override
-    public Optional<Blog> getBlogById(Integer id) {
-        return blogRepository.findById(id);
+    public void save(Blog blog) {
+        blogRepository.save(blog);
     }
 
     @Override
-    public Blog saveBlog(Blog blog) {
-        return blogRepository.save(blog);
-    }
-
-    @Override
-    public void deleteBlog(Integer id) {
+    public void deleteById(int id) {
         blogRepository.deleteById(id);
     }
 }
