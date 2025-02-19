@@ -1,14 +1,4 @@
-<!-- index.html -->
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Blog Manager</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-</head>
-<body>
-<div class="container mt-4">
-    <h2>Blog Manager</h2>
-
+<div th:fragment="content">
     <form th:action="@{/blogs}" method="get" class="form-inline mb-3">
         <input type="text" name="keyword" class="form-control" placeholder="Search by name">
         <select name="order" class="form-control mx-2">
@@ -59,5 +49,5 @@
         </tbody>
     </table>
 </div>
-</body>
-</html>
+
+
