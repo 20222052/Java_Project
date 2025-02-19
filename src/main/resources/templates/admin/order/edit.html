@@ -1,0 +1,128 @@
+<div th:fragment="content">
+    <h1>Chi tiết đơn hàng</h1>
+    <span th:switch="${order.status}">
+            <span style="background-color: #00e765" th:case="0" class="badge badge-warning">Chờ xác nhận</span>
+            <span style="background-color: #e3c300" th:case="1" class="badge badge-primary">Đã xác nhận</span>
+            <span style="background-color: #cd0a0a" th:case="2" class="badge badge-success">Đã giao hàng</span>
+            <span th:case="3" class="badge badge-danger">Đã hủy</span>
+            <span th:case="*" class="badge badge-secondary">Không xác định</span>
+    </span>
+<br><br>
+    <div th:if="${order.status == 0}">
+        <form th:action="@{/admin/order/update/{id}(id=${order.id})}" method="post">
+            <input type="hidden" name="status" value="1"/>
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xác nhận đơn hàng này?')">
+                Xác nhận
+            </button>
+        </form>
+
+        <form th:action="@{/admin/order/update/{id}(id=${order.id})}" method="post">
+            <input type="hidden" name="status" value="3"/>
+            <button type="submit" class="btn btn-warning" onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này?')">
+                Hủy
+            </button>
+        </form>
+    </div>
+
+    <div th:if="${order.status == 1}">
+        <form th:action="@{/admin/order/update/{id}(id=${order.id})}" method="post">
+            <input type="hidden" name="status" value="2"/>
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn đánh dấu là đã giao hàng?')">
+                Đã giao hàng
+            </button>
+        </form>
+
+        <form th:action="@{/admin/order/update/{id}(id=${order.id})}" method="post">
+            <input type="hidden" name="status" value="3"/>
+            <button type="submit" class="btn btn-warning" onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này?')">
+                Hủy
+            </button>
+        </form>
+    </div>
+
+    <div th:if="${order.status == 2}">
+        <form th:action="@{/admin/order/update/{id}(id=${order.id})}" method="post">
+            <input type="hidden" name="status" value="3"/>
+            <button type="submit" class="btn btn-warning" onclick="return confirm('Bạn có chắc muốn hủy đơn hàng này?')">
+                Hủy
+            </button>
+        </form>
+    </div>
+
+    <div th:if="${order.status == 3}">
+        <form th:action="@{/admin/order/update/{id}(id=${order.id})}" method="post">
+            <input type="hidden" name="status" value="2"/>
+            <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn đánh dấu là đã giao hàng?')">
+                Khôi Phục
+            </button>
+        </form>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Thông tin khách hàng</h3>
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Họ tên</th>
+                    <td th:text="${order.name}"></td>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <td th:text="${order.phone}"></td>
+                </tr>
+                <tr>
+                    <th>Địa chỉ</th>
+                    <td th:text="${order.address}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <h3>Thông tin giao hàng</h3>
+            <table class="table">
+                <tbody>
+                <tr>
+                    <th>Họ tên</th>
+                    <td th:text="${order.name}"></td>
+                </tr>
+                <tr>
+                    <th>Phone</th>
+                    <td th:text="${order.phone}"></td>
+                </tr>
+                <tr>
+                    <th>Địa chỉ</th>
+                    <td th:text="${order.address}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <h3>Thông tin sản phẩm</h3>
+    <table class="table">
+        <thead>
+        <tr>
+            <th>STT</th>
+            <th>Image</th>
+            <th>Product Name</th>
+            <th>Product quantity</th>
+            <th>Product price</th>
+            <th>Sub total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item, iterStat : ${orderDetails}">
+            <td th:text="${iterStat.index + 1}"></td>
+            <td>
+                <img th:src="@{'/uploads/product/' + ${item.productId}}" width="40">
+            </td>
+            <td th:text="${item.productId}"></td>
+            <td th:text="${item.quantity}"></td>
+            <td th:text="${#numbers.formatDecimal(item.price, 0, 'COMMA', 0, 'POINT')}"></td>
+            <td th:text="${#numbers.formatDecimal(item.price * item.quantity, 0, 'COMMA', 0, 'POINT')}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
