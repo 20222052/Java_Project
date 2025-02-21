@@ -1,36 +1,46 @@
-<!-- edit.html -->
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-  <title>Edit Blog</title>
-  <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-<h2>Edit Blog</h2>
-<form th:action="@{/blogs/{id}(id=${blog.id})}" method="post" enctype="multipart/form-data">
-  <input type="hidden" name="_method" value="put">
-
-  <label>Blog Name:</label>
-  <input type="text" name="name" th:value="${blog.name}" required>
-
-  <label>Blog Link:</label>
-  <input type="text" name="link" th:value="${blog.link}" required>
-
-  <label>Blog Description:</label>
-  <textarea name="description" th:text="${blog.description}" required></textarea>
-
-  <label>Blog Position:</label>
-  <input type="text" name="position" th:value="${blog.position}">
-
-  <label>Blog Image:</label>
-  <input type="file" name="img" accept="image/*">
-  <img th:src="@{'/uploads/blog/' + ${blog.image}}" width="100">
-
-  <label>Status:</label>
-  <input type="radio" name="status" value="1" th:checked="${blog.status}"> Publish
-  <input type="radio" name="status" value="0" th:checked="${!blog.status}"> Hidden
-
-  <button type="submit">Save</button>
-</form>
-</body>
-</html>
+<div th:fragment="content">
+  <div class="row">
+    <form th:action="@{/admin/blog/update}" method="POST" enctype="multipart/form-data">
+      <div class="col-md-12">
+        <input type="hidden" name="id" th:value="${blog?.id}">
+        <div class="form-group">
+          <label for="name">Blog Name</label>
+          <input type="text" id="name" name="name" class="form-control" placeholder="Enter blog name" th:value="${blog?.name}" required>
+        </div>
+        <div class="form-group">
+          <label for="link">Blog Link</label>
+          <input type="text" id="link" name="link" class="form-control" placeholder="Enter blog link" th:value="${blog?.link}" required>
+        </div>
+        <div class="form-group">
+          <label for="description">Blog Description</label>
+          <textarea id="description" name="description" class="form-control" placeholder="Enter blog description" th:text="${blog?.description}" required></textarea>
+        </div>
+        <div class="form-group">
+          <label for="position">Blog Position</label>
+          <input type="text" id="position" name="position" class="form-control" placeholder="Enter position" th:value="${blog?.position}">
+        </div>
+        <div class="form-group">
+          <label for="img">Blog Image</label>
+          <input type="file" id="img" name="img" accept="image/*" class="form-control">
+          <div>
+            <img th:src="@{'/uploads/blog/' + ${blog?.image}}" width="100" alt="Blog Image">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Status</label>
+          <div class="radio">
+            <label>
+              <input type="radio" name="status" value="1" th:checked="${blog?.status}"> Publish
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <input type="radio" name="status" value="0" th:checked="${!blog?.status}"> Hidden
+            </label>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Update</button>
+      </div>
+    </form>
+  </div>
+</div>

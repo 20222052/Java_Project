@@ -1,30 +1,26 @@
-<!-- index.html -->
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>Blog Manager</title>
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-</head>
-<body>
-<div class="container mt-4">
-    <h2>Blog Manager</h2>
-
-    <form th:action="@{/blogs}" method="get" class="form-inline mb-3">
-        <input type="text" name="keyword" class="form-control" placeholder="Search by name">
-        <select name="order" class="form-control mx-2">
-            <option value="">Default</option>
-            <option value="id-asc">Sort by ID Asc</option>
-            <option value="id-desc">Sort by ID Desc</option>
-            <option value="name-asc">Sort by Name Asc</option>
-            <option value="name-desc">Sort by Name Desc</option>
-            <option value="created_at-asc">Sort by Date Asc</option>
-            <option value="created_at-desc">Sort by Date Desc</option>
-        </select>
-        <button type="submit" class="btn btn-primary">Search</button>
-        <a href="/blogs/create" class="btn btn-success ml-auto">Add New</a>
+<div th:fragment="content">
+    <form action="@{/blogs}" method="GET" class="form-inline">
+        <div class="form-group">
+            <label for="keyword">Name</label>
+            <input type="text" class="form-control" name="keyword" placeholder="Input field" th:value="${keyword}">
+        </div>
+        <div class="form-group">
+            <label for="order">Sort</label>
+            <select name="order" class="form-control">
+                <option value="">Default</option>
+                <option value="id-asc" th:selected="${order == 'id-asc'}">Sort ascending by ID</option>
+                <option value="id-desc" th:selected="${order == 'id-desc'}">Sort descending by ID</option>
+                <option value="name-asc" th:selected="${order == 'name-asc'}">Sort ascending by name</option>
+                <option value="name-desc" th:selected="${order == 'name-desc'}">Sort descending by name</option>
+                <option value="created_at-asc" th:selected="${order == 'created_at-asc'}">Sort ascending by created_at</option>
+                <option value="created_at-desc" th:selected="${order == 'created_at-desc'}">Sort descending by created_at</option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+        <a href="/blogs/create" class="btn btn-success ml-auto"><i class="fa fa-plus"></i> Add New</a>
     </form>
-
-    <table class="table table-bordered">
+    <br>
+    <table class="table table-hover">
         <thead>
         <tr>
             <th>ID</th>
@@ -43,21 +39,20 @@
             <td th:text="${blog.id}"></td>
             <td th:text="${blog.name}"></td>
             <td><a th:href="${blog.link}" th:text="${blog.link}"></a></td>
-            <td><img th:src="@{'/uploads/' + ${blog.image}}" width="50"></td>
+            <td><img th:src="@{'/uploads/blog/' + ${blog.image}}" width="50"></td>
             <td th:text="${blog.description}"></td>
             <td th:text="${blog.position}"></td>
-            <td th:text="${blog.status ? 'Publish' : 'Hidden'}"></td>
+            <td th:text="${blog.status == 1 ? 'Publish' : 'Hidden'}"></td>
             <td th:text="${blog.createdAt}"></td>
             <td>
-                <a th:href="@{'/blogs/edit/' + ${blog.id}}" class="btn btn-sm btn-primary">Edit</a>
-                <form th:action="@{'/blogs/delete/' + ${blog.id}}" method="post" style="display:inline;">
-                    <input type="hidden" name="_method" value="delete">
-                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                <a th:href="@{'/blogs/edit/' + ${blog.id}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                <form th:action="@{/blogs/delete/{id}(id=${blog.id})}" method="post" style="display:inline;">
+                    <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure want to delete it?')">
+                        <i class="fa fa-trash"></i>
+                    </button>
                 </form>
             </td>
         </tr>
         </tbody>
     </table>
 </div>
-</body>
-</html>
