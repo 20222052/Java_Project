@@ -76,15 +76,15 @@
                                 <ul class="navigation">
                                     <li class="active"><a th:href="@{/}">Home</a></li>
                                     <li class="menu-item-has-children">
-                                        <a th:href="@{/home/category}">PRODUCTS</a>
+                                        <a th:href="@{/category}">PRODUCTS</a>
                                         <ul class="sub-menu">
                                             <li th:each="cath : ${cats_home}">
-                                                <a th:href="@{/home/category/{id}(id=${cath.id})}" th:text="${cath.name}"></a>
+                                                <a th:href="@{/category/{id}(id=${cath.id})}" th:text="${cath.name}"></a>
                                             </li>
                                         </ul>
                                     </li>
-                                    <li><a th:href="@{/home/our_blog}">BLOG</a></li>
-                                    <li><a th:href="@{/home/contact}">Contact</a></li>
+                                    <li><a th:href="@{/our_blog}">BLOG</a></li>
+                                    <li><a th:href="@{/contact}">Contact</a></li>
                                 </ul>
                             </div>
                             <div class="header-action d-none d-md-block">

@@ -26,7 +26,7 @@ public class Category {
     private Date created_at;
     private Date updated_at;
 
-    @OneToMany(mappedBy = "cateId")
-    private List<Product> products;
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Product> product;
 
 }

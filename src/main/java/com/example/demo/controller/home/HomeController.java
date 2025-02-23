@@ -15,8 +15,14 @@ public class HomeController {
     private CustomersService customersService;
     @GetMapping
     public String index() {
+
         return "master/main_home";
     }
 
+    @GetMapping("/contact")
+    public String contact(Model model) {
+        model.addAttribute("page", "contact");
+        return "master/main_home";
+    }
 
 }

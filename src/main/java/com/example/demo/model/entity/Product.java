@@ -22,14 +22,13 @@ public class Product {
     private String image;
     private Double price;
     private Double sale_price;
-    private Integer category_id;
     private String description;
     private Boolean status;
     private Date created_at;
     private Date update_at;
 
-    @ManyToMany
-    @JoinColumn(name = "cateId",referencedColumnName = "cateId")
-    private List<Category> categories;
+    @ManyToOne
+    @JoinColumn(name = "category_id",nullable = false)
+    private Category category;
 
 }
