@@ -1,0 +1,41 @@
+<div th:fragment="content">
+        <table class="table table-hover" >
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Customer</th>
+                <th>Status</th>
+                <th>Created At</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${orders}">
+                <td th:text="${item.id}"></td>
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.email}"></td>
+                <td th:text="${item.phone}"></td>
+                <td th:text="${item.address}"></td>
+                <td th:text="${item.customerId}"></td>
+                <td>
+                    <span th:switch="${item.status}">
+                        <span style="background-color: #00e765" th:case="0" class="badge badge-warning">Chờ xác nhận</span>
+                        <span style="background-color: #e3c300" th:case="1" class="badge badge-primary">Đã xác nhận</span>
+                        <span style="background-color: #cd0a0a" th:case="2" class="badge badge-success">Đã giao hàng</span>
+                        <span th:case="3" class="badge badge-danger">Đã hủy</span>
+                        <span th:case="*" class="badge badge-secondary">Không xác định</span>
+                    </span>
+                </td>
+                <td th:text="${#dates.format(item.createdAt, 'dd/MM/yyyy')}"></td>
+                <td>
+                    <a th:href="@{/admin/order/edit/{id}(id=${item.id})}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+</div>
+

@@ -1,58 +1,52 @@
-package com.example.demo.model;
+package com.example.demo.model.entity;
 
-import com.example.demo.model.entity.Customer;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.ColumnDefault;
+import java.util.Date;
+import java.util.List;
 
-import java.time.LocalDate;
 
-@Getter
-@Setter
 @Entity
 @Table(name = "orders")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Order {
     @Id
-    @Column(name = "id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Size(max = 100)
-    @Column(name = "name", length = 100)
+    @Column(length = 100)
     private String name;
 
-    @Size(max = 100)
-    @Column(name = "email", length = 100)
+    @Column(length = 100)
     private String email;
 
-    @Size(max = 100)
-    @Column(name = "phone", length = 100)
-    private String phone;
+    @Column(length = 100)
+    private int phone;
 
-    @Size(max = 100)
-    @Column(name = "address", length = 100)
+    @Column(length = 100)
     private String address;
 
-    @Size(max = 50)
-    @Column(name = "token", length = 50)
+    @Column(length = 50)
     private String token;
 
-    @NotNull
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "customer_id", nullable = false)
-    private Customer customer;
+    @Column(nullable = false)
+    private int customerId;
 
-    @ColumnDefault("0")
-    @Column(name = "status")
-    private Boolean status;
+    @Column(nullable = false)
+    private int status;
 
-    @ColumnDefault("current_timestamp()")
-    @Column(name = "created_at")
-    private LocalDate createdAt;
+    @Temporal(TemporalType.DATE)
+    private Date createdAt;
 
-    @Column(name = "updated_at")
-    private LocalDate updatedAt;
+    @Temporal(TemporalType.DATE)
+    private Date updatedAt;
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderDetail> orderDetails;
 }
