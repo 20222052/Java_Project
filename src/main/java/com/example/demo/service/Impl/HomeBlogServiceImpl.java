@@ -2,15 +2,14 @@ package com.example.demo.service.Impl;
 
 import com.example.demo.model.entity.Blog;
 import com.example.demo.repository.BlogRepository;
-import com.example.demo.service.BlogService;
+import com.example.demo.service.HomeBlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service("blogServiceImpl")
-public class BlogServiceImpl implements BlogService {
-
+@Service("homeBlogService") // Định danh để tránh conflict với AdminBlogServiceImpl
+public class HomeBlogServiceImpl implements HomeBlogService {
 
     @Autowired
     private BlogRepository blogRepository;
@@ -27,11 +26,11 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public void save(Blog blog) {
-        blogRepository.save(blog);
+        throw new UnsupportedOperationException("HomeBlogService không hỗ trợ save!");
     }
 
     @Override
     public void deleteById(int id) {
-        blogRepository.deleteById(id);
+        throw new UnsupportedOperationException("HomeBlogService không hỗ trợ delete!");
     }
 }
