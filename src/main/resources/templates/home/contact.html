@@ -31,7 +31,7 @@
                 <h2 class="title">Get in <span>Touch</span></h2>
               </div>
               <p>Meat provide well shaped fresh and the organic meat well <br> animals is Humans have hunted schistoric</p>
-              <form action="#" th:action="@{/contact}" method="post">
+              <form action="#" th:action="@{/contact}" th:object="${contact}" method="post">
                 <div class="contact-form-wrap">
                   <div class="form-grp">
                     <input name="name" type="text" placeholder="Your Name *" required>
