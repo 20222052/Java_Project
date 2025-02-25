@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("home/blogs")
+@RequestMapping("/blogs")
 public class HomeBlogController {
 
     @Autowired
@@ -24,14 +24,15 @@ public class HomeBlogController {
     public String listBlogs(Model model) {
         List<Blog> blogs = homeBlogService.findAll();
         model.addAttribute("blogs", blogs);
-        return "home/blog"; //
+        model.addAttribute("page", "blog");
+        return "master/main_home";
     }
 
     @GetMapping("/{id}")
     public String blogDetail(@PathVariable int id, Model model) {
         Blog blog = homeBlogService.getById(id);
         if (blog == null) {
-            return "redirect:/home/blogs";
+            return "redirect:/blogs";
         }
         model.addAttribute("blog", blog);
         return "home/blog_details";

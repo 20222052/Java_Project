@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
     @Autowired
     private CustomersService customersService;
+    @Autowired
     private ContactService contactService;
     @GetMapping
     public String index() {
@@ -29,8 +30,8 @@ public class HomeController {
         return "master/main_home";
     }
 
-    @PostMapping()
-    public String addContact(@ModelAttribute("contact") Contact contact, Model model) {
+    @PostMapping("/contact")
+    public String addContact(@ModelAttribute("contact") Contact contact) {
         contactService.save(contact);
         return "redirect:/";
     }
