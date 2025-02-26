@@ -41,4 +41,8 @@ public class CustomersServiceImpl  implements CustomersService {
         customersRepository.save(customer);
     }
 
+    public Customer findByEmail(String email) {
+        return customersRepository.findByEmail(email);
+    }
+
 }
