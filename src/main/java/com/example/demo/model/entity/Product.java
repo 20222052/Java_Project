@@ -29,7 +29,7 @@ public class Product {
     private Date update_at;
 
     @ManyToMany
-    @JoinColumn(name = "category_id",referencedColumnName = "category_id")
+    @JoinColumn(name = "cateId",referencedColumnName = "cateId")
     private List<Category> categories;
 
 }

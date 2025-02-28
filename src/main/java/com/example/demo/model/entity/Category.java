@@ -26,7 +26,7 @@ public class Category {
     private Date created_at;
     private Date updated_at;
 
-    @OneToMany(mappedBy = "category_id")
+    @OneToMany(mappedBy = "cateId")
     private List<Product> products;
 
 }

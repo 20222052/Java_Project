@@ -36,12 +36,12 @@ public class ProductServiceimpl implements ProductService {
     }
 
     @Override
-    public void deleteProductById(Integer id) {
-        productRepository.deleteById(id);
+    public void deleteProductById(Integer proid) {
+        productRepository.deleteById(proid);
     }
 
     @Override
-    public List<Product> getProductByName(String name) {
-        return productRepository.findProductsByname(name);
+    public List<Product> getProductByName(String proName) {
+        return productRepository.findProductsByProName(proName  );
     }
 }

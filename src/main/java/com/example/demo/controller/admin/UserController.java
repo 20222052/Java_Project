@@ -24,31 +24,6 @@ public class UserController {
         return "admin/login";
     }
 
-    @PostMapping("/login")
-    public String login(@RequestParam("email") String email,
-                        @RequestParam("password") String password,
-                        Model model, HttpSession session) {
-
-        User user = userService.findUserByEmail(email);
-        if (user == null) {
-            model.addAttribute("error", "Sai Email");
-            return "admin/login";
-        }
-
-        if (!user.getPassword().equals(password)) {
-            model.addAttribute("error", "Sai Mật Khẩu");
-            return "admin/login";
-        }
-
-        if ("admin".equals(user.getRole())) {
-            session.setAttribute("user", user);
-            return "redirect:/admin/customer";
-        }
-
-        model.addAttribute("error", "Bạn không có quyền truy cập.");
-        return "admin/login";
-    }
-
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();

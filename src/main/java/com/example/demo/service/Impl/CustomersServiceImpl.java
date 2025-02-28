@@ -4,6 +4,7 @@ import com.example.demo.model.entity.Customer;
 import com.example.demo.repository.CustomersRepository;
 import com.example.demo.service.CustomersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
 public class CustomersServiceImpl  implements CustomersService {
     @Autowired
     private CustomersRepository customersRepository;
+    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     @Override
     public List<Customer> findAll() {
         return customersRepository.findAll();
@@ -23,6 +25,7 @@ public class CustomersServiceImpl  implements CustomersService {
 
     @Override
     public void save(Customer customer) {
+        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
         customersRepository.save(customer);
     }
 
@@ -39,6 +42,10 @@ public class CustomersServiceImpl  implements CustomersService {
     @Override
     public void update(Customer customer) {
         customersRepository.save(customer);
+    }
+
+    public Customer findByEmail(String email) {
+        return customersRepository.findByEmail(email);
     }
 
 }
