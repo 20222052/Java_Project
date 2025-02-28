@@ -24,7 +24,7 @@ public class SecurityConfig {
             http
                     .authorizeHttpRequests(authorizeRequests ->
                             authorizeRequests
-                                    .requestMatchers("/admin/login").permitAll()
+                                    .requestMatchers("/admin/login","/admin/user").permitAll()
                                     .requestMatchers("/admin/**").authenticated()
                                     .anyRequest().permitAll()
                     )
@@ -32,7 +32,7 @@ public class SecurityConfig {
                             formLogin
                                     .loginPage("/admin/login")
                                     .loginProcessingUrl("/admin/login")
-                                    .failureUrl("/admin/login")
+                                    .failureUrl("/admin/logout")
                                     .defaultSuccessUrl("/admin/customer", true)
                     )
                     .logout(logout ->
@@ -53,6 +53,7 @@ public class SecurityConfig {
                 return org.springframework.security.core.userdetails.User
                         .withUsername(user.getEmail())
                         .password(user.getPassword())
+                        .roles("USER")
                         .build();
             } else {
                 throw new UsernameNotFoundException("Email not found: " + email);

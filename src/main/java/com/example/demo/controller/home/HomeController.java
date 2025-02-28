@@ -4,6 +4,7 @@ import com.example.demo.model.entity.Contact;
 import com.example.demo.service.ContactService;
 import com.example.demo.service.CustomersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HomeController {
     @Autowired
     private CustomersService customersService;
+    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     @Autowired
     private ContactService contactService;
     @GetMapping
@@ -27,6 +29,9 @@ public class HomeController {
     @GetMapping("/contact")
     public String contact(Model model) {
         model.addAttribute("page", "contact");
+        model.addAttribute("pass", passwordEncoder.encode("12345"));
+        passwordEncoder.encode("12345");
+
         return "master/main_home";
     }
 

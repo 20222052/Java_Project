@@ -3,6 +3,7 @@ package com.example.demo.controller.admin;
 import com.example.demo.model.entity.Customer;
 import com.example.demo.service.CustomersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -37,12 +38,11 @@ public class CustomerController {
     }
 
     @PostMapping("/save")
-    public String saveCustomer(@ModelAttribute("customer") Customer customer, Model model, BindingResult result , RedirectAttributes redirectAttributes) {
+    public String saveCustomer(@ModelAttribute("customer") Customer customer, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             model.addAttribute("content" , "create");
             return "master/main_admin";
         }
-
         customersService.save(customer);
         redirectAttributes.addFlashAttribute("success", "Customer added successfully!");
 
