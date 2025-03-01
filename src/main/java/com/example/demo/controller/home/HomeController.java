@@ -20,7 +20,6 @@ import java.util.List;
 public class HomeController {
     @Autowired
     private CustomersService customersService;
-
     @Autowired
     private ContactService contactService;
     @Autowired
@@ -30,6 +29,13 @@ public class HomeController {
     private BlogService blogService;
     @Autowired
     private BannerService bannerService;
+    @Autowired
+    private CategoryService categoryService;
+    @ModelAttribute
+    public void addAtributes(Model model) {
+        List lst_category = categoryService.getAllCategories();
+        model.addAttribute("cats_home" , lst_category);
+    }
 
     @GetMapping
     public String index(Model model) {
@@ -39,6 +45,7 @@ public class HomeController {
         List lst_prd_feature = productService.getTop6Products();
         List lst_blog = blogService.findAll();
         List lst_banner = bannerService.getBanner();
+
         model.addAttribute("lst_banner", lst_banner);
         model.addAttribute("lst_blog", lst_blog);
         model.addAttribute("lst_prd_sale", lst_prd_sale);

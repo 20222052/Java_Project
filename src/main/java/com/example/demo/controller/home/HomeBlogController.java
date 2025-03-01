@@ -2,6 +2,7 @@ package com.example.demo.controller.home;
 
 import com.example.demo.model.entity.Blog;
 import com.example.demo.service.BlogService;
+import com.example.demo.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,14 @@ public class HomeBlogController {
     @Autowired
     @Qualifier("homeBlogService")
     private BlogService homeBlogService;
+
+    @Autowired
+    private CategoryService categoryService;
+    @ModelAttribute
+    public void addAtributes(Model model) {
+        List lst_category = categoryService.getAllCategories();
+        model.addAttribute("cats_home" , lst_category);
+    }
 
     @GetMapping
     public String listBlogs(Model model) {
