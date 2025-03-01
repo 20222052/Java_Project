@@ -46,15 +46,16 @@
                     <div class="header-top-right">
                         <div class="header-top-menu">
                             <ul class="list-wrap">
-                                <li>
-                                    <a th:href="@{/account/profilemain}">Hi <span ></span></a>
+                                <li th:if="${session.cus != null}">
+                                    <a th:href="@{/account/profilemain}">Hi <span th:text="${session.cus.name}"></span></a>
                                 </li>
-                                <li ><a th:href="@{/account/change_password}">Change Password</a></li>
-                                <li ><a th:href="@{/account/favorite}">Favorites</a></li>
-                                <li ><a th:href="@{/order/history}">My Orders</a></li>
-                                <li ><a th:href="@{/account/logout}">Logout</a></li>
-                                <li ><a th:href="@{/account/login}">Login</a></li>
-                                <li ><a th:href="@{/account/register}">Register</a></li>
+                                <li th:if="${session.cus != null}"><a th:href="@{/acc/change_password}">Change Password</a></li>
+                                <li th:if="${session.cus != null}"><a th:href="@{/acc/favorite}">Favorites</a></li>
+                                <li th:if="${session.cus != null}"><a th:href="@{/order/history}">My Orders</a></li>
+                                <li th:if="${session.cus != null}"><a th:href="@{/acc/logout}">Logout</a></li>
+
+                                <li th:unless="${session.cus != null}"><a th:href="@{/acc/login}">Login</a></li>
+                                <li th:unless="${session.cus != null}"><a th:href="@{/acc/register}">Register</a></li>
                             </ul>
                         </div>
                     </div>

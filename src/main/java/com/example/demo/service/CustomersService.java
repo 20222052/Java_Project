@@ -11,5 +11,5 @@ public interface CustomersService {
     void update(Customer customer);
     void delete(Customer customer);
     void deleteById(Integer id);
-
+    Customer getByEmail(String email);
 }

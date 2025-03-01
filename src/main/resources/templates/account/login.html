@@ -55,7 +55,7 @@
                 <span class="sub-title">----------------------------Login-------------------------------</span>
                 <h2 class="title">Login <span>Account</span></h2>
               </div>
-              <form action="#" th:action="@{/login}" method="POST">
+              <form action="#" th:action="@{/acc/login}" method="POST">
                 <div class="contact-form-wrap">
 
                   <div class="form-grp">
@@ -73,8 +73,8 @@
                   </div>
 
                   <button type="submit">Login</button>
-                  <a style="display: block; text-align: center; margin-top: 15px" th:href="@{/account/register}">Click here to create new account</a>
-                  <a style="display: block; text-align: center; margin-top: 15px" th:href="@{/account/forgot_password}">Forgot password</a>
+                  <a style="display: block; text-align: center; margin-top: 15px" th:href="@{/acc/register}">Click here to create new account</a>
+                  <a style="display: block; text-align: center; margin-top: 15px" th:href="@{/acc/forgot_password}">Forgot password</a>
                 </div>
               </form>
               <p class="ajax-response mb-0"></p>
