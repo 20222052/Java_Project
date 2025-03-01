@@ -62,7 +62,6 @@ public class BlogController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Error deleting blog!");
         }
-
         return "redirect:/admin/blog";
     }
 

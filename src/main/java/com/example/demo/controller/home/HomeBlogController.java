@@ -28,7 +28,7 @@ public class HomeBlogController {
         return "master/main_home";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("details/{id}")
     public String blogDetail(@PathVariable int id, Model model) {
         Blog blog = homeBlogService.getById(id);
         if (blog == null) {

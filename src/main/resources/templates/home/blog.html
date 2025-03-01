@@ -34,16 +34,16 @@
                         <div class="col-lg-8">
                             <div th:each="blog : ${blogs}" class="blog-item">
                                 <div class="blog-thumb">
-                                    <a th:href="@{/blog/details/{id}(id=${blog.id})}">
+                                    <a th:href="@{/blogs/details/{id}(id=${blog.id})}">
                                         <img th:src="@{'/uploads/blog/' + ${blog.image}}" alt="">
                                     </a>
                                 </div>
                                 <div class="blog-content">
                                     <h2 class="title">
-                                        <a th:href="@{/blog/details/{id}(id=${blog.id})}" th:text="${blog.name}"></a>
+                                        <a th:href="@{/blogs/details/{id}(id=${blog.id})}" th:text="${blog.name}"></a>
                                     </h2>
                                     <p th:text="${#strings.abbreviate(blog.description, 100)}"></p>
-                                    <a th:href="@{/blog/details/{id}(id=${blog.id})}" class="link-btn">Read more<i class="fas fa-angle-double-right"></i></a>
+                                    <a th:href="@{/blogs/details/{id}(id=${blog.id})}" class="link-btn">Read more<i class="fas fa-angle-double-right"></i></a>
                                 </div>
                             </div>
                         </div>

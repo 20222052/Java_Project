@@ -21,7 +21,7 @@ public class Comment {
     @Column(columnDefinition = "TEXT")
     private String comment;
 
-    private Boolean status = false;
+    private Boolean status ;
 
     @Column(name = "created_at", updatable = false)
     private Date createdAt;
