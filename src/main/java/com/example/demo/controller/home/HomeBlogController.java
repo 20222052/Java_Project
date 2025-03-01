@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -15,7 +16,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/blogs")
 public class HomeBlogController {
-
     @Autowired
     @Qualifier("homeBlogService")
     private BlogService homeBlogService;
@@ -34,8 +34,9 @@ public class HomeBlogController {
         if (blog == null) {
             return "redirect:/blogs";
         }
+        model.addAttribute("page", "blog_details");
         model.addAttribute("blog", blog);
-        return "home/blog_details";
+        return "master/main_home";
     }
 }
 

@@ -40,12 +40,13 @@ public class CustomersServiceImpl  implements CustomersService {
     }
 
     @Override
-    public void update(Customer customer) {
-        customersRepository.save(customer);
+    public Customer getByEmail(String email) {
+       return customersRepository.findByEmail(email);
     }
 
-    public Customer findByEmail(String email) {
-        return customersRepository.findByEmail(email);
+    @Override
+    public void update(Customer customer) {
+        customersRepository.save(customer);
     }
 
 }

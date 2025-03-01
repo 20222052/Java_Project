@@ -20,7 +20,7 @@ import java.util.List;
 public class HomeController {
     @Autowired
     private CustomersService customersService;
-    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
     @Autowired
     private ContactService contactService;
     @Autowired
@@ -51,9 +51,6 @@ public class HomeController {
     @GetMapping("/contact")
     public String contact(Model model) {
         model.addAttribute("page", "contact");
-        model.addAttribute("pass", passwordEncoder.encode("12345"));
-        passwordEncoder.encode("12345");
-
         return "master/main_home";
     }
 
