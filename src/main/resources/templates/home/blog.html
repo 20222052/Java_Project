@@ -1,58 +1,58 @@
-<div th:fragment="content">
-    <form action="@{/blogs}" method="GET" class="form-inline">
-        <div class="form-group">
-            <label for="keyword">Name</label>
-            <input type="text" class="form-control" name="keyword" placeholder="Input field" th:value="${keyword}">
-        </div>
-        <div class="form-group">
-            <label for="order">Sort</label>
-            <select name="order" class="form-control">
-                <option value="">Default</option>
-                <option value="id-asc" th:selected="${order == 'id-asc'}">Sort ascending by ID</option>
-                <option value="id-desc" th:selected="${order == 'id-desc'}">Sort descending by ID</option>
-                <option value="name-asc" th:selected="${order == 'name-asc'}">Sort ascending by name</option>
-                <option value="name-desc" th:selected="${order == 'name-desc'}">Sort descending by name</option>
-                <option value="created_at-asc" th:selected="${order == 'created_at-asc'}">Sort ascending by created_at</option>
-                <option value="created_at-desc" th:selected="${order == 'created_at-desc'}">Sort descending by created_at</option>
-            </select>
-        </div>
-        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-        <a href="/blogs/create" class="btn btn-success ml-auto"><i class="fa fa-plus"></i> Add New</a>
-    </form>
-    <br>
-    <table class="table table-hover">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Link</th>
-            <th>Image</th>
-            <th>Description</th>
-            <th>Position</th>
-            <th>Status</th>
-            <th>Created At</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="blog : ${blogs}">
-            <td th:text="${blog.id}"></td>
-            <td th:text="${blog.name}"></td>
-            <td><a th:href="${blog.link}" th:text="${blog.link}"></a></td>
-            <td><img th:src="@{'/uploads/blog/' + ${blog.image}}" width="50"></td>
-            <td th:text="${#strings.abbreviate(blog.description, 100)}"></td>
-            <td th:text="${blog.position}"></td>
-            <td th:text="${blog.status == 1 ? 'Publish' : 'Hidden'}"></td>
-            <td th:text="${blog.createdAt}"></td>
-            <td>
-                <a th:href="@{'/blogs/edit/' + ${blog.id}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
-                <form th:action="@{/blogs/delete/{id}(id=${blog.id})}" method="post" style="display:inline;">
-                    <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure want to delete it?')">
-                        <i class="fa fa-trash"></i>
-                    </button>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Our Blog</title>
+</head>
+<body>
+<main>
+    <div th:fragment="content">
+        <!-- breadcrumb-area -->
+        <section class="breadcrumb-area tg-motion-effects breadcrumb-bg" data-background="/uploads/bg/breadcrumb_bg.jpg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="breadcrumb-content">
+                            <h2 class="title">Our Blog</h2>
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">our blog</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- breadcrumb-area-end -->
+
+        <!-- blog-area -->
+        <section class="blog-area blog-bg" data-background="/uploads/bg/blog_bg.jpg">
+            <div class="container custom-container-five">
+                <div class="blog-inner-wrap">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-8">
+                            <div th:each="blog : ${blogs}" class="blog-item">
+                                <div class="blog-thumb">
+                                    <a th:href="@{/blog/details/{id}(id=${blog.id})}">
+                                        <img th:src="@{'/uploads/blog/' + ${blog.image}}" alt="">
+                                    </a>
+                                </div>
+                                <div class="blog-content">
+                                    <h2 class="title">
+                                        <a th:href="@{/blog/details/{id}(id=${blog.id})}" th:text="${blog.name}"></a>
+                                    </h2>
+                                    <p th:text="${#strings.abbreviate(blog.description, 100)}"></p>
+                                    <a th:href="@{/blog/details/{id}(id=${blog.id})}" class="link-btn">Read more<i class="fas fa-angle-double-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- blog-area-end -->
+    </div>x`
+</main>
+</body>
+</html>
