@@ -34,7 +34,7 @@
           <div class="col-lg-6" th:each="np : ${newsProducts}">
             <div class="features-item tg-motion-effects">
               <div class="features-content">
-                <span th:text="${np.cat.name}"></span>
+                <span th:text="${np.category.name}"></span>
                 <h4 class="title">
                   <a th:href="@{/home/product/{id}(id=${np.id})}" th:text="${np.name}"></a>
                 </h4>
@@ -96,7 +96,7 @@
         </div>
       </div>
       <div class="row justify-content-center">
-        <div class="col-lg-4 col-md-6" th:each="sp : ${saleProducts}">
+        <div class="col-lg-4 col-md-6" th:each="sp : ${lst_prd_sale}">
           <div class="product-item">
             <div class="product-img">
               <a th:href="@{/home/product/{id}(id=${sp.id})}">
@@ -181,28 +181,25 @@
         </div>
       </div>
       <div class="row justify-content-center">
-<!--        <div class="col-lg-4 col-md-6" th:each="product : ${featureProducts}">-->
-<!--          <div class="product-item">-->
-<!--            <div class="product-img">-->
-<!--              <a th:href="@{/product/{id}(id=${product.id})}">-->
-<!--                <img th:src="@{uploads/product/{img}(img=${product.image})}" alt="Product Image">-->
-<!--              </a>-->
-<!--            </div>-->
-<!--            <div class="product-content">-->
-<!--              <h4 class="title">-->
-<!--                <a th:href="@{/product/{id}(id=${product.id})}" th:text="${product.name}"></a>-->
-<!--              </h4>-->
-<!--              <span th:if="${product.salePrice > 0}">-->
-<!--                            <s th:text="${#numbers.formatInteger(product.price, 0, 'COMMA')} + ' VND'"></s>-->
-<!--                            <span class="price" th:text="${#numbers.formatInteger(product.salePrice, 0, 'COMMA')} + ' VND'"></span>-->
-<!--                        </span>-->
-<!--              <span th:unless="${product.salePrice > 0}" class="price" th:text="${#numbers.formatInteger(product.price, 0, 'COMMA')} + ' VND'"></span>-->
-<!--              <a th:href="@{/favorite/{id}(id=${product.id})}" class="favorite">-->
-<!--                <i class="fas fa-heart"></i>-->
-<!--              </a>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
+        <div class="col-lg-4 col-md-6" th:each="product : ${lst_prd_feature}">
+          <div class="product-item">
+            <div class="product-img">
+              <a th:href="@{/product/{id}(id=${product.id})}">
+                <img th:src="@{'/uploads/product/' + ${product.image}}" alt="Product Image" />
+              </a>
+            </div>
+            <div class="product-content">
+              <h4 class="title">
+                <a th:href="@{/product/{id}(id=${product.id})}" th:text="${product.name}"></a>
+              </h4>
+              <span th:if="${product.salePrice > 0}">
+                <s th:text="${#numbers.formatInteger(product.price, 0, 'COMMA')} + ' VND'"></s>
+                <span class="price" th:text="${#numbers.formatInteger(product.salePrice, 0, 'COMMA')} + ' VND'"></span>
+            </span>
+              <span th:unless="${product.salePrice > 0}" class="price" th:text="${#numbers.formatInteger(product.price, 0, 'COMMA')} + ' VND'"></span>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="shop-now-btn text-center mt-40">
         <a th:href="@{/category}" class="btn">Shop Now</a>

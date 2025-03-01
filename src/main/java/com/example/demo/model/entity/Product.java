@@ -21,10 +21,12 @@ public class Product {
     private String name;
     private String image;
     private Double price;
-    private Double sale_price;
+    @Column(name = "sale_price")
+    private Double salePrice;
     private String description;
     private Boolean status;
-    private Date created_at;
+    @Column(name = "created_at")
+    private Date createdAt;
     private Date update_at;
 
     @ManyToOne

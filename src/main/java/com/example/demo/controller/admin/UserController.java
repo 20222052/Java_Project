@@ -16,17 +16,4 @@ import jakarta.servlet.http.HttpSession;
 @RequestMapping("/admin")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
-
-    @GetMapping("/login")
-    public String loginPage() {
-        return "admin/login";
-    }
-
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        return "redirect:/admin/login";
-    }
 }

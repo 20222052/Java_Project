@@ -4,6 +4,7 @@ import com.example.demo.model.entity.Product;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,7 +16,26 @@ public class ProductServiceimpl implements ProductService {
 
     @Override
     public List<Product> getAllProducts() {
-        return productRepository.findAll();
+        return productRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+    }
+
+    @Override
+    public List<Product> getProductsSortedBy(String sort) {
+        if ("desc".equalsIgnoreCase(sort)) {
+            return productRepository.findTop4ByOrderByCreatedAtDesc();
+        } else {
+            return productRepository.findTop4ByOrderByCreatedAtAsc();
+        }
+    }
+
+    @Override
+    public List<Product> getProductsSale() {
+        return productRepository.findProductsSale();
+    }
+
+    @Override
+    public List<Product> getTop6Products() {
+        return productRepository.findTop6ByOrderByCreatedAtAsc();
     }
 
     @Override
