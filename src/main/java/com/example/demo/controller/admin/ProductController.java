@@ -25,7 +25,7 @@ public class ProductController {
 
     @GetMapping
     private String index(Model model) {
-        List<Product> list_prd= productService.getAllProducts();
+        List<Product> list_prd = productService.getAllProducts();
         model.addAttribute("list", list_prd);
         model.addAttribute("content1" , "List Products");
         return "master/main_admin";
