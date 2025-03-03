@@ -21,13 +21,13 @@ public class HomeProductController {
 
     @ModelAttribute
     public void addAtributes(Model model) {
-        List lst_category = categoryService.getAllCategories();
+        List lst_category = categoryService.findAll();
         model.addAttribute("cats_home" , lst_category);
     }
 
     @GetMapping
     public String home(Model model) {
-        List<Category> catsHome = categoryService.getAllCategories();
+        List<Category> catsHome = categoryService.findAll();
         List<Product> products = productService.getAllProducts();
         model.addAttribute("products", products);
         model.addAttribute("cats_home", catsHome);
@@ -41,7 +41,7 @@ public class HomeProductController {
                           @RequestParam(name = "order", required = false) String order) {
         try {
             // Fetch category by ID
-            Category category = categoryService.getCategoryById(categoryId);
+            Category category = categoryService.findById(categoryId);
 
             if (category == null) {
                 model.addAttribute("errorMessage", "Category not found.");
@@ -58,7 +58,7 @@ public class HomeProductController {
             }
 
             // Fetch all categories and latest products
-            List<Category> catsHome = categoryService.getAllCategories();
+            List<Category> catsHome = categoryService.findAll();
             List<Product> latestProducts = productService.getLatestProducts();
 
             model.addAttribute("cat", category);
