@@ -1,0 +1,149 @@
+<div th:fragment="content">
+    <!-- breadcrumb-area -->
+    <section class="breadcrumb-area tg-motion-effects breadcrumb-bg" data-background="uploads/bg/breadcrumb_bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-content">
+                        <h2 class="title" th:text="${product.name}"></h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#" th:href="@{/}">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page" th:text="${product.name}"></li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- breadcrumb-area-end -->
+
+    <!-- shop-details-area -->
+    <section class="shop-details-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="shop-details-images-wrap">
+                        <div class="tab-content" id="myTabContent">
+                            <div class="tab-pane show active" id="itemOne-tab-pane" role="tabpanel" aria-labelledby="itemOne-tab" tabindex="0">
+                                <a href="#" th:href="@{uploads/product/{image}(image=${product.image})}" class="popup-image">
+                                    <img id="big-img" th:src="@{uploads/product/{image}(image=${product.image})}" alt="" th:alt="${product.name}" width="100%">
+                                </a>
+                            </div>
+                        </div>
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link">
+                                    <img class="thumb-image" th:src="@{uploads/product/{image}(image=${product.image})}" alt="" width="125px">
+                                </button>
+                            </li>
+                            <th:block th:each="img : ${images}">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link">
+                                        <img class="thumb-image" th:src="@{uploads/product/{image}(image=${img.image})}" alt="" width="125px">
+                                    </button>
+                                </li>
+                            </th:block>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="shop-details-content ">
+                        <h2 class="title" th:text="${product.name}"></h2>
+                        <h3 class="price" th:text="${#numbers.formatInteger(product.price,3,'COMMA')} + ' VND'">
+                        <span th:text="${product.status == 1 ? 'In stock' : 'Out stock'}"></span>
+                        </h3>
+                        <div class="shop-details-qty">
+                            <div class="shop-details-qty-inner col-lg-5">
+                                <input type="hidden" name="product_id" class="product_id" th:value="${product.id}">
+                                <button style="border: none; background-color: red; color: #fff; border-radius: 20px 20px; padding: 10px 15px 10px 15px;" class="add_to_cart">
+                                    <i class="fa fa-shopping-cart"></i> ADD TO CART
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="shop-add-Wishlist">
+                            <input type="hidden" name="product_id" class="product_id" th:value="${product.id}">
+                            <button style="border: none; background-color: red; color: #fff; border-radius: 10px 10px;" class="add_to_heart">
+                                <i class="far fa-heart"></i> Add to Wishlist
+                            </button>
+                        </div>
+                        <div class="sd-category">
+                            <span class="title">CATEGORY:</span>
+                            <ul class="list-wrap">
+                                <li><a th:href="@{/product/category/{id}(id=${product.category.id})}" th:text="${product.category.name}"></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Description Tab -->
+            <div class="row justify-content-center">
+                <div class="col-10 justify-content-center">
+                    <div class="product-desc-wrap justify-content-center">
+                        <ul class="nav nav-tabs" id="descriptionTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="description-tab" data-bs-toggle="tab" data-bs-target="#description-tab-pane" type="button" role="tab" aria-controls="description-tab-pane" aria-selected="true">Description</button>
+                            </li>
+                        </ul>
+                        <div class="tab-content justify-content-center" id="descriptionTabContent">
+                            <div class="tab-pane fade show active" id="description-tab-pane" role="tabpanel" aria-labelledby="description-tab" tabindex="0">
+                                <div class="product-description-content">
+                                    <div class="product-description-content">
+                                        <p th:utext="${product.description}"></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- shop-details-area-end -->
+
+    <!-- related-product-area -->
+    <section class="related-product-area pb-70">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title text-center mb-50">
+                        <span class="sub-title">Organic Shop</span>
+                        <h2 class="title">Related Products</h2>
+                        <div class="title-shape" data-background="uploads/images/title_shape.png"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-item-wrap-three">
+                <div class="row justify-content-center rp-active">
+                    <th:block th:each="prd : ${latestProducts}">
+                        <div class="col-xl-3">
+                            <div class="product-item-three inner-product-item">
+                                <div class="product-thumb-three">
+                                    <a th:href="@{/product/{id}(id=${prd.id})}">
+                                        <img th:src="@{uploads/product/{image}(image=${prd.image})}" alt="" />
+                                    </a>
+                                </div>
+                                <div class="product-content-three">
+                                    <h2 class="title">
+                                        <a th:href="@{/product/{id}(id=${prd.id})}" th:text="${prd.name}"></a>
+                                    </h2>
+                                    <h2 class="price" th:text="${#numbers.formatInteger(prd.price,3,'COMMA')} + ' VND'"></h2>
+                                </div>
+                                <div class="product-shape-two">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 303 445" preserveAspectRatio="none">
+                                        <path d="M319,3802H602c5.523,0,10,5.24,10,11.71l-10,421.58c0,6.47-4.477,11.71-10,11.71H329c-5.523,0-10-5.24-10-11.71l-10-421.58C309,3807.24,313.477,3802,319,3802Z" transform="translate(-309 -3802)" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- related-product-area-end -->
+
+</div>

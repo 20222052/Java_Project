@@ -32,4 +32,8 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "category_id",referencedColumnName = "id")
     private Category category;
+
+    // Thêm mối quan hệ với bảng PrdImages
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)  // mappedBy xác định thuộc tính bên lớp con
+    private List<PrdImages> images;  // Danh sách các hình ảnh của sản phẩm
 }
