@@ -1,0 +1,114 @@
+<div th:fragment="content">
+    <!-- Breadcrumb Section -->
+    <section class="breadcrumb-area">
+        <div class="container">
+            <div class="breadcrumb-content">
+<!--                <h2 th:text="${cat.name}"></h2>-->
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/">Home</a></li>
+<!--                        <li class="breadcrumb-item active" th:text="${cat.name}"></li>-->
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop Section -->
+    <section class="shop-area">
+        <div class="container">
+            <div class="row">
+                <!-- Product Listing -->
+                <div class="col-xl-9 col-lg-8">
+                    <div class="shop-top-wrap">
+                        <form action="" method="GET">
+                            <div class="row">
+                                <div class="col-xl-4 col-md-9">
+                                    <select name="order" class="form-control">
+                                        <option value="">Default</option>
+                                        <option value="id-asc" th:selected="${param.order == 'id-asc'}">Sort Ascending by ID</option>
+                                        <option value="id-desc" th:selected="${param.order == 'id-desc'}">Sort Descending by ID</option>
+                                        <option value="name-asc" th:selected="${param.order == 'name-asc'}">Sort Ascending by Name</option>
+                                        <option value="name-desc" th:selected="${param.order == 'name-desc'}">Sort Descending by Name</option>
+                                    </select>
+                                </div>
+                                <div class="col-xl-4 col-md-3">
+                                    <button type="submit" class="btn btn-primary">Sort</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="shop-item-wrap">
+                        <div class="row">
+                            <div th:each="prod : ${products}" class="col-xl-4 col-md-6">
+                                <div class="product-item">
+                                    <div class="product-thumb">
+                                        <a th:href="@{('/product/' + ${prod.id})}">
+                                            <img th:src="@{uploads/product/{image}(image=${prod.image})}" th:alt="${prod.name}">
+                                        </a>
+                                    </div>
+                                    <div class="product-content">
+                                        <a th:href="@{('/category/' + ${prod.category.id})}" class="tag" th:text="${prod.category.name}"></a>
+                                        <h2 class="title">
+                                            <a th:href="@{('/product/' + ${prod.id})}" th:text="${prod.name}"></a>
+                                        </h2>
+                                        <span th:if="${prod.salePrice > 0}">
+                                            <s th:text="${prod.price}"></s>
+                                        </span>
+                                        <span th:text="${prod.salePrice > 0 ? prod.salePrice : prod.price}"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sidebar Section -->
+                <div class="col-xl-3 col-lg-4">
+                    <div class="shop-sidebar">
+                        <!-- Categories -->
+                        <div class="shop-widget">
+                            <h4>Category</h4>
+                            <ul>
+                                <li th:each="cat : ${cats_home}">
+                                    <a th:href="@{('/category/' + ${cat.id})}" th:text="${cat.name}"></a>
+<!--                                    <span th:text="${cat.products.size()}"></span>-->
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Latest Products -->
+<!--                        <div class="shop-widget">-->
+<!--                            <h4>Latest Products</h4>-->
+<!--                            <div th:each="np : ${news_products}" class="lp-item">-->
+<!--                                <div class="lp-thumb">-->
+<!--                                    <a th:href="@{('/product/' + ${np.id})}">-->
+<!--                                        <img th:src="@{uploads/product/{image}(image=${np.image})}" th:alt="${np.name}">-->
+<!--                                    </a>-->
+<!--                                </div>-->
+<!--                                <div class="lp-content">-->
+<!--                                    <h4 class="title">-->
+<!--                                        <a th:href="@{('/product/' + ${np.id})}" th:text="${np.name}"></a>-->
+<!--                                    </h4>-->
+<!--                                    <span th:if="${np.salePrice > 0}">-->
+<!--                                        <s th:text="${np.price}"></s>-->
+<!--                                    </span>-->
+<!--                                    <span th:text="${np.salePrice > 0 ? np.salePrice : np.price}"></span>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pagination -->
+            <div class="pagination">
+                <div th:replace="fragments/pagination :: pagination"></div>
+            </div>
+        </div>
+    </section>
+
+    </body>
+    </html>
+</div>

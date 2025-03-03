@@ -15,6 +15,26 @@ public class ProductServiceImpl implements ProductService {
     private ProductRepository productRepository;
 
     @Override
+    public List<Product> getProductsByCategorySorted(Integer categoryId, String order) {
+        switch (order) {
+            case "id-asc":
+                return productRepository.findByCategoryIdOrderByIdAsc(categoryId);
+            case "id-desc":
+                return productRepository.findByCategoryIdOrderByIdDesc(categoryId);
+            case "name-asc":
+                return productRepository.findByCategoryIdOrderByNameAsc(categoryId);
+            case "name-desc":
+                return productRepository.findByCategoryIdOrderByNameDesc(categoryId);
+            default:
+                return productRepository.findByCategoryIdOrderByCreatedAtDesc(categoryId);
+        }
+    }
+
+    public List<Product> getLatestProducts() {
+        return productRepository.findTop6ByOrderByCreatedAtAsc();
+    }
+
+    @Override
     public List<Product> getAllProducts() {
         return productRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
     }

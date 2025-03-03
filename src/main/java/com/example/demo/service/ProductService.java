@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 public interface ProductService {
+    List<Product> getProductsByCategorySorted(Integer categoryId, String order);
+    List<Product> getLatestProducts();
     List<Product> getAllProducts();
     List<Product> getProductsSortedBy(String sort);
     List<Product> getProductsSale();

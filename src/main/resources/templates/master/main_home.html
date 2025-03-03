@@ -4,7 +4,6 @@
     <base href="/">
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>My Shop</title>
     <title th:text="${title?:''}"></title>
     <meta name="description" content="Bemet - Butcher & Meat Shop HTML Template">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -72,22 +71,21 @@
                         <div class="mobile-nav-toggler"><i class="fas fa-bars"></i></div>
                         <nav class="menu-nav">
                             <div class="logo">
-
                                 <a th:href="@{/}"><img th:src="@{/uploads/logo/logo.png}" alt="Logo"></a>
                             </div>
                             <div class="navbar-wrap main-menu d-none d-lg-flex">
                                 <ul class="navigation">
-                                    <li th:class="${(page == null or page == '') ? 'active' : ''}"><a th:href="@{/}">Home</a></li>
-                                    <li class="menu-item-has-children" th:class="${page == 'product' ? 'active' : ''}">
-                                        <a th:href="@{/category}">PRODUCTS</a>
+                                    <li class="active"><a th:href="@{/}">Home</a></li>
+                                    <li class="menu-item-has-children">
+                                        <a th:href="@{/product}">PRODUCTS</a>
                                         <ul class="sub-menu">
                                             <li th:each="cath : ${cats_home}">
-                                                <a th:href="@{/category/{id}(id=${cath.id})}" th:text="${cath.name}"></a>
+                                                <a th:href="@{/product/{id}(id=${cath.id})}" th:text="${cath.name}"></a>
                                             </li>
                                         </ul>
                                     </li>
-                                    <li th:class="${page == 'blog' ? 'active' : ''}"><a th:href="@{/blogs}">BLOG</a></li>
-                                    <li th:class="${page == 'contact' ? 'active' : ''}"><a th:href="@{/contact}">Contact</a></li>
+                                    <li><a th:href="@{/blogs}">BLOG</a></li>
+                                    <li><a th:href="@{/contact}">Contact</a></li>
                                 </ul>
                             </div>
                             <div class="header-action d-none d-md-block">
