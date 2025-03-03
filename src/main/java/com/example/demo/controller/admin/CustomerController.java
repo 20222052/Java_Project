@@ -2,6 +2,7 @@ package com.example.demo.controller.admin;
 
 import com.example.demo.model.entity.Customer;
 import com.example.demo.service.CustomersService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -32,13 +33,14 @@ public class CustomerController {
 
     @GetMapping("/create")
     public String create(Model model) {
+        model.addAttribute("customer" ,new Customer());
         model.addAttribute("content1" , "Add Customer");
         model.addAttribute("content" , "create");
         return "master/main_admin";
     }
 
     @PostMapping("/save")
-    public String saveCustomer(@ModelAttribute("customer") Customer customer, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
+    public String saveCustomer(@Valid @ModelAttribute("customer") Customer customer, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             model.addAttribute("content" , "create");
             return "master/main_admin";
@@ -63,6 +65,7 @@ public class CustomerController {
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable int id, Model model) {
+        model.addAttribute("customer" ,new Customer());
         model.addAttribute("content1" , "Edit Customer");
         model.addAttribute("content" , "edit");
         model.addAttribute("customer" , customersService.getById(id));
@@ -70,7 +73,7 @@ public class CustomerController {
     }
 
     @PostMapping("/update")
-    public String updateCustomer(@ModelAttribute("customer") Customer customer, Model model, BindingResult result , RedirectAttributes redirectAttributes) {
+    public String updateCustomer(@Valid @ModelAttribute("customer") Customer customer, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             model.addAttribute("content" , "edit");
             return "master/main_admin";

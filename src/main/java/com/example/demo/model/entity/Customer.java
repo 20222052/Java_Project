@@ -1,7 +1,11 @@
 package com.example.demo.model.entity;
 
 import com.example.demo.model.entity.Order;
+import com.example.demo.validation.UniqueField;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,22 +26,24 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable = false, length = 100)
+    @NotBlank(message = "Tên không được để trống")
     private String name;
 
-    @Column(nullable = false, unique = true, length = 100)
+    @NotBlank(message = "Email không được để trống")
+    @Email(message = "Phải điền email")
+    @UniqueField(entityClass = Customer.class, fieldName = "email")
     private String email;
 
-    @Column(nullable = false, length = 100)
+    @NotBlank(message = "SĐT không được để trống")
+    @UniqueField(entityClass = Customer.class, fieldName = "phone")
     private String phone;
 
-    @Column(length = 100)
+    @NotBlank(message = "Địa chỉ hông được để trống")
     private String address;
 
-    @Column(nullable = false)
     private Integer gender = 0;
 
-    @Column(nullable = false, length = 200)
+    @Size(min = 8,max = 100, message = "Mật khẩu phải nằm trong khoảng 8 đến 100 kí tự")
     private String password;
 
     @Column()

@@ -38,7 +38,7 @@
         <tr th:each="blog : ${blogs}">
             <td th:text="${blog.id}"></td>
             <td th:text="${blog.name}"></td>
-            <td><a th:href="${blog.link}" th:text="${blog.link}"></a></td>
+            <td><a th:href="${blog.link}" >Click here !</a></td>
             <td><img th:src="@{'/uploads/blog/' + ${blog.image}}" width="50"></td>
             <td th:text="${blog.description}"></td>
             <td th:text="${blog.position}"></td>

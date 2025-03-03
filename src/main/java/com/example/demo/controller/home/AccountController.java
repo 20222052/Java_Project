@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/acc")
@@ -18,7 +15,8 @@ public class AccountController {
     @Autowired
     private CustomersService customerservice;
     BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-    @GetMapping({"/","/login"})
+
+    @GetMapping({"/", "/login"})
     public String login() {
         return "account/login";
     }
@@ -39,6 +37,7 @@ public class AccountController {
             return "account/login";
         }
     }
+
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
@@ -49,4 +48,11 @@ public class AccountController {
     public String register() {
         return "account/register";
     }
+
+    @PostMapping("/register")
+    public String addAccount(@ModelAttribute("customer") Customer customer) {
+        customerservice.save(customer);
+        return "redirect:/";
+    }
 }
+
