@@ -1,6 +1,6 @@
 <div th:fragment="content">
     <!-- Breadcrumb Section -->
-    <section class="breadcrumb-area">
+    <section class="breadcrumb-area tg-motion-effects breadcrumb-bg" data-background="uploads/bg/breadcrumb_bg.jpg">
         <div class="container">
             <div class="breadcrumb-content">
 <!--                <h2 th:text="${cat.name}"></h2>-->
@@ -15,7 +15,7 @@
     </section>
 
     <!-- Shop Section -->
-    <section class="shop-area">
+    <section class="shop-area shop-bg" data-background="uploads/bg/shop_bg.jpg">
         <div class="container">
             <div class="row">
                 <!-- Product Listing -->
@@ -73,39 +73,39 @@
                             <ul>
                                 <li th:each="cat : ${cats_home}">
                                     <a th:href="@{('/category/' + ${cat.id})}" th:text="${cat.name}"></a>
-<!--                                    <span th:text="${cat.products.size()}"></span>-->
+                                    <span th:text="${cat.products.size()}"></span>
                                 </li>
                             </ul>
                         </div>
 
                         <!-- Latest Products -->
-<!--                        <div class="shop-widget">-->
-<!--                            <h4>Latest Products</h4>-->
-<!--                            <div th:each="np : ${news_products}" class="lp-item">-->
-<!--                                <div class="lp-thumb">-->
-<!--                                    <a th:href="@{('/product/' + ${np.id})}">-->
-<!--                                        <img th:src="@{uploads/product/{image}(image=${np.image})}" th:alt="${np.name}">-->
-<!--                                    </a>-->
-<!--                                </div>-->
-<!--                                <div class="lp-content">-->
-<!--                                    <h4 class="title">-->
-<!--                                        <a th:href="@{('/product/' + ${np.id})}" th:text="${np.name}"></a>-->
-<!--                                    </h4>-->
-<!--                                    <span th:if="${np.salePrice > 0}">-->
-<!--                                        <s th:text="${np.price}"></s>-->
-<!--                                    </span>-->
-<!--                                    <span th:text="${np.salePrice > 0 ? np.salePrice : np.price}"></span>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
+                        <div class="shop-widget">
+                            <h4>Latest Products</h4>
+                            <div th:each="np : ${news_products}" class="lp-item">
+                                <div class="lp-thumb">
+                                    <a th:href="@{('/product/' + ${np.id})}">
+                                        <img th:src="@{uploads/product/{image}(image=${np.image})}" th:alt="${np.name}">
+                                    </a>
+                                </div>
+                                <div class="lp-content">
+                                    <h4 class="title">
+                                        <a th:href="@{('/product/' + ${np.id})}" th:text="${np.name}"></a>
+                                    </h4>
+                                    <span th:if="${np.salePrice > 0}">
+                                        <s th:text="${np.price}"></s>
+                                    </span>
+                                    <span th:text="${np.salePrice > 0 ? np.salePrice : np.price}"></span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Pagination -->
-            <div class="pagination">
-                <div th:replace="fragments/pagination :: pagination"></div>
-            </div>
+<!--            <div class="pagination">-->
+<!--                <div th:replace="fragments/pagination :: pagination"></div>-->
+<!--            </div>-->
         </div>
     </section>
 
