@@ -77,10 +77,10 @@
                                 <ul class="navigation">
                                     <li class="active"><a th:href="@{/}">Home</a></li>
                                     <li class="menu-item-has-children">
-                                        <a th:href="@{/category}">PRODUCTS</a>
+                                        <a th:href="@{/product}">PRODUCTS</a>
                                         <ul class="sub-menu">
                                             <li th:each="cath : ${cats_home}">
-                                                <a th:href="@{/category/{id}(id=${cath.id})}" th:text="${cath.name}"></a>
+                                                <a th:href="@{/product/{id}(id=${cath.id})}" th:text="${cath.name}"></a>
                                             </li>
                                         </ul>
                                     </li>
