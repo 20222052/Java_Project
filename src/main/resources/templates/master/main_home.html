@@ -75,8 +75,8 @@
                             </div>
                             <div class="navbar-wrap main-menu d-none d-lg-flex">
                                 <ul class="navigation">
-                                    <li class="active"><a th:href="@{/}">Home</a></li>
-                                    <li class="menu-item-has-children">
+                                    <li th:classappend="${page == ''} ? 'active'"><a th:href="@{/}">Home</a></li>
+                                    <li class="menu-item-has-children" th:classappend="${page == 'product'} ? 'active'">
                                         <a th:href="@{/product}">PRODUCTS</a>
                                         <ul class="sub-menu">
                                             <li th:each="cath : ${cats_home}">
@@ -84,8 +84,8 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li><a th:href="@{/blogs}">BLOG</a></li>
-                                    <li><a th:href="@{/contact}">Contact</a></li>
+                                    <li th:classappend="${page == 'blog'} ? 'active'"><a th:href="@{/blogs}">BLOG</a></li>
+                                    <li th:classappend="${page == 'contact'} ? 'active'"><a th:href="@{/contact}">Contact</a></li>
                                 </ul>
                             </div>
                             <div class="header-action d-none d-md-block">

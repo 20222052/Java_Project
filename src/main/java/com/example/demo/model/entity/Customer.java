@@ -3,6 +3,7 @@ package com.example.demo.model.entity;
 import com.example.demo.model.entity.Order;
 import com.example.demo.validation.UniqueField;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -10,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -21,6 +23,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Validated
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,11 +34,11 @@ public class Customer {
 
     @NotBlank(message = "Email không được để trống")
     @Email(message = "Phải điền email")
-    @UniqueField(entityClass = Customer.class, fieldName = "email")
+//    @UniqueField(entityClass = Customer.class, fieldName = "email")
     private String email;
 
     @NotBlank(message = "SĐT không được để trống")
-    @UniqueField(entityClass = Customer.class, fieldName = "phone")
+//    @UniqueField(entityClass = Customer.class, fieldName = "phone")
     private String phone;
 
     @NotBlank(message = "Địa chỉ hông được để trống")

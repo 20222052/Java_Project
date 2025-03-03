@@ -5,14 +5,13 @@ import com.example.demo.model.entity.Product;
 import com.example.demo.service.CategoryService;
 import com.example.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
+@RestController
 @Controller
 @RequestMapping("admin/product")
 public class ProductController {
@@ -34,4 +33,5 @@ public class ProductController {
         model.addAttribute("content1" , "List Products");
         return "master/main_admin";
     }
+
 }

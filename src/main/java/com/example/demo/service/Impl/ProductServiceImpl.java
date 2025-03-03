@@ -4,6 +4,9 @@ import com.example.demo.model.entity.Product;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -78,5 +81,13 @@ public class ProductServiceImpl implements ProductService {
         productRepository.deleteById(proid);
     }
 
+    @Override
+    public Page<Product> getProductsByCategory(Integer categoryId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        if (categoryId == 0){
+            return productRepository.findAll(pageable);
+        }
+        return productRepository.findByCategoryId(categoryId, pageable);
+    }
 
 }
