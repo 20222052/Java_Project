@@ -82,4 +82,14 @@ public class ContactController {
 
         return "redirect:/admin/contact";
     }
+
+    @PostMapping("/update-status/{id}")
+    public String updateStatus(@PathVariable int id, Contact contact, RedirectAttributes redirectAttributes) {
+        contact = contactService.getById(id);
+        if(contact.getStatus() == 0){
+            contact.setStatus(1);
+            contactService.save(contact);
+        }
+        return "redirect:/admin/contact";
+    }
 }

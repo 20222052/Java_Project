@@ -45,7 +45,7 @@ public class HomeController {
         List lst_prd_feature = productService.getTop6Products();
         List lst_blog = blogService.findAll();
         List lst_banner = bannerService.getBanner();
-
+        model.addAttribute("page", "");
         model.addAttribute("lst_banner", lst_banner);
         model.addAttribute("lst_blog", lst_blog);
         model.addAttribute("lst_prd_sale", lst_prd_sale);
