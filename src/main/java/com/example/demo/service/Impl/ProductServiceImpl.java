@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ProductServiceimpl implements ProductService {
+public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductRepository productRepository;
 

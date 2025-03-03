@@ -23,7 +23,7 @@ public class Category {
     @Column(nullable = false,unique = true, length = 100)
     private String name;
     private Boolean status;
-    private Date created_at;
+    private Date created_at = new Date();
     private Date updated_at;
 
     @OneToMany(mappedBy = "category")

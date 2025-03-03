@@ -33,7 +33,7 @@ public class HomeController {
     private CategoryService categoryService;
     @ModelAttribute
     public void addAtributes(Model model) {
-        List lst_category = categoryService.getAllCategories();
+        List lst_category = categoryService.findAll();
         model.addAttribute("cats_home" , lst_category);
     }
 

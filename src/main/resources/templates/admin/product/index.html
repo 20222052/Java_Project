@@ -1,62 +1,75 @@
-<!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
-<head>
-    <title>Title</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-</head>
-<body>
-
-        <div class="container">
-            <h1>list products</h1>
-            <text class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>id</th>
-                        <th>name</th>
-                        <th>image</th>
-                        <th>price</th>
-                        <th>sale_price</th>
-                        <th>category_id</th>
-                        <th>description</th>
-                        <th>status</th>
-                        <th>created_at</th>
-                        <th>update_at</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="p:${list}">
-                        <td th:text="${product.id}"></td>
-                        <td th:text="${product.name}"></td>
-                        <td th:text="${product.image}"></td>
-                        <td th:text="${product.price}"></td>
-                        <td th:text="${product.sale_price}"></td>
-                        <td th:text="${product.category_id}"></td>
-                        <td th:text="${product.description}"></td>
-                        <td th:text="${product.status}"></td>
-                        <td th:text="${product.created_at}"></td>
-                        <td th:text="${product.update_at}"></td>
-                    </tr>
-                </tbody>
-            </text>
-            <a th:href="@{/product/add}">Add new product</a>
+<div th:fragment="content">
+    <form th:action="@{admin/product}" method="GET" class="form-inline" role="form">
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" class="form-control" name="keyword" placeholder="Input field" th:value="${param.keyword}">
         </div>
 
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-</body>
-</html>
+        <div class="form-group">
+            <label>Category</label>
+            <select name="cat_id" class="form-control">
+                <option value="">Choice One---</option>
+                <option th:each="cat : ${cats}" th:value="${cat.id}" th:text="${cat.name}" th:selected="${param.cat_id == cat.id}"></option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label >Arrange</label>
+            <select name="order" class="form-control">
+                <option value="">Default</option>
+                <option value="id-asc" th:selected="${param.order == 'id-asc'}">Sort ascending by ID</option>
+                <option value="id-desc" th:selected="${param.order == 'id-desc'}">Sort descending by ID</option>
+                <option value="name-asc" th:selected="${param.order == 'name-asc'}">Sort ascending by name</option>
+                <option value="name-desc" th:selected="${param.order == 'name-desc'}">Sort descending by name</option>
+                <option value="created_at-asc" th:selected="${param.order == 'created_at-asc'}">Sort ascending by created_at</option>
+                <option value="created_at-desc" th:selected="${param.order == 'created_at-desc'}">Sort descending by created_at</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+        <a th:href="@{/admin/product/create}" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add new</a>
+    </form>
+
+    <br>
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>STT</th>
+            <th>Product Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Status</th>
+            <th>Image</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="prod, stt : ${list}">
+            <td th:text="${stt.index + 1}"></td>
+            <td th:text="${prod.name}"></td>
+            <td th:text="${prod.category.name}"></td>
+            <td>
+                <span th:text="${prod.price}"></span>
+                <span class="label label-success" th:text="${prod.salePrice}"></span>
+            </td>
+            <td th:text="${prod.status == 0 ? 'Hidden' : 'Publish'}"></td>
+            <td>
+                <img th:src="@{'/uploads/product/' + ${prod.image}}" width="40">
+            </td>
+            <td class="text-right">
+                <form th:action="@{/admin/product/delete/{id}(id=${prod.id})}" method="post">
+                    <input type="hidden" name="_method" value="DELETE" />
+                    <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete it?')">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </form>
+                <a th:href="@{/admin/product/edit/{id}(id=${prod.id})}" class="btn btn-sm btn-primary">
+                    <i class="fa fa-edit"></i>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>

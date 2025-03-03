@@ -2,6 +2,7 @@ package com.example.demo.controller.admin;
 
 import com.example.demo.model.entity.Category;
 import com.example.demo.model.entity.Product;
+import com.example.demo.service.CategoryService;
 import com.example.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,7 +18,8 @@ import java.util.List;
 public class ProductController {
     @Autowired
     private ProductService productService;
-
+    @Autowired
+    private CategoryService categoryService;
     @ModelAttribute
     public void addAtributes(Model model) {
         model.addAttribute("page" , "product");
@@ -26,7 +28,9 @@ public class ProductController {
     @GetMapping
     private String index(Model model) {
         List<Product> list_prd = productService.getAllProducts();
+        List<Category> list_cat = categoryService.findAll();
         model.addAttribute("list", list_prd);
+        model.addAttribute("cats", list_cat);
         model.addAttribute("content1" , "List Products");
         return "master/main_admin";
     }

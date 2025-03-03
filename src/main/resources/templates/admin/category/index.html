@@ -1,0 +1,64 @@
+<div th:fragment="content">
+<!--    <div class="form">-->
+<!--        <form th:action="@{/admin/categories}" method="GET" class="form-inline" role="form">-->
+<!--            <div class="form-group">-->
+<!--                <label>Name</label>-->
+<!--                <input type="text" class="form-control" name="keyword" placeholder="Input field" th:value="${param.keyword}">-->
+<!--            </div>-->
+
+<!--            <div class="form-group">-->
+<!--                <label>Arrange</label>-->
+<!--                <select name="order" class="form-control">-->
+<!--                    <option value="">Default</option>-->
+<!--                    <option value="id-asc" th:selected="${param.order == 'id-asc'}">Sort ascending by ID</option>-->
+<!--                    <option value="id-desc" th:selected="${param.order == 'id-desc'}">Sort descending by ID</option>-->
+<!--                    <option value="name-asc" th:selected="${param.order == 'name-asc'}">Sort ascending by Name</option>-->
+<!--                    <option value="name-desc" th:selected="${param.order == 'name-desc'}">Sort descending by Name</option>-->
+<!--                    <option value="created_at-asc" th:selected="${param.order == 'created_at-asc'}">Sort ascending by Created At</option>-->
+<!--                    <option value="created_at-desc" th:selected="${param.order == 'created_at-desc'}">Sort descending by Created At</option>-->
+<!--                </select>-->
+<!--            </div>-->
+
+<!--            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>-->
+<!--            <a th:href="@{/categories/create}" class="btn btn-success pull-right">-->
+<!--                <i class="fa fa-plus"></i> Add new-->
+<!--            </a>-->
+<!--        </form>-->
+<!--    </div>-->
+
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>STT</th>
+            <th>Category Name</th>
+            <th>Total Product</th>
+            <th>Date Created</th>
+            <th>Category Status</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cats : ${category}">
+            <td th:text="${cats.id}"></td>
+            <td th:text="${cats.name}"></td>
+            <td th:text="${#lists.size(cats.products)}"></td>
+            <td th:text="${#dates.format(cats.created_at, 'dd/MM/yyyy')}"></td>
+            <td th:text="${cats.status == 1 ? 'Publish' : 'Hidden'}"></td>
+
+            <td class="text-right">
+                <form th:action="@{/admin/categories/{id}/delete(id=${cats.id})}" method="POST">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <a th:href="@{/admin/categories/{id}/edit(id=${cats.id})}" class="btn btn-sm btn-primary">
+                        <i class="fa fa-edit"></i>
+                    </a>
+                    <button type="submit" class="btn btn-sm btn-danger">
+                        <i class="fa fa-trash"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+
+</div>
