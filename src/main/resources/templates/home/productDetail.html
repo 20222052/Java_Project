@@ -51,23 +51,42 @@
                 <div class="col-lg-6">
                     <div class="shop-details-content ">
                         <h2 class="title" th:text="${product.name}"></h2>
-                        <h3 class="price" th:text="${#numbers.formatInteger(product.price,3,'COMMA')} + ' VND'">
+                        <h3 class="price" th:text="${#numbers.formatInteger(product.salePrice,3,'COMMA')} + ' VND'">
                         <span th:text="${product.status == 1 ? 'In stock' : 'Out stock'}"></span>
                         </h3>
                         <div class="shop-details-qty">
                             <div class="shop-details-qty-inner col-lg-5">
-                                <input type="hidden" name="product_id" class="product_id" th:value="${product.id}">
-                                <button style="border: none; background-color: red; color: #fff; border-radius: 20px 20px; padding: 10px 15px 10px 15px;" class="add_to_cart">
-                                    <i class="fa fa-shopping-cart"></i> ADD TO CART
-                                </button>
+<!--                                <input type="hidden" name="product_id" class="product_id" th:value="${product.id}">-->
+<!--                                <button style="border: none; background-color: red; color: #fff; border-radius: 20px 20px; padding: 10px 15px 10px 15px;" class="add_to_cart">-->
+<!--                                    <i class="fa fa-shopping-cart"></i> ADD TO CART-->
+<!--                                </button>-->
+
+                                <a th:href="@{/cart/insert/{id}(id=${product.id})}">
+                                    <button style="border: none; background-color: red; color: #fff; border-radius: 20px 20px; padding: 10px 15px 10px 15px;" class="add_to_cart">
+                                        <i class="fa fa-shopping-cart"></i> ADD TO CART
+                                    </button>
+                                </a>
                             </div>
                         </div>
 
                         <div class="shop-add-Wishlist">
-                            <input type="hidden" name="product_id" class="product_id" th:value="${product.id}">
-                            <button style="border: none; background-color: red; color: #fff; border-radius: 10px 10px;" class="add_to_heart">
-                                <i class="far fa-heart"></i> Add to Wishlist
-                            </button>
+                            <div th:if="${session.cus != null}">
+                                <a th:if="${product.favorited}" title="Bỏ thích" onclick="return confirm('Bạn có muốn bỏ thích không')"
+                                   th:href="@{/favorite/delete/{id}(id=${product.favoriteId})}">
+                                    <button style="border: none; background-color: red; color: #fff; border-radius: 10px 10px;" class="add_to_heart">
+                                        <i class="fas fa-heart"></i> Remove to Wishlist
+                                    </button>
+                                </a>
+                                <a th:unless="${product.favorited}" title="Yêu thích" th:href="@{/favorite/insert/{id}(id=${product.id})}">
+                                    <button style="border: none; background-color: red; color: #fff; border-radius: 10px 10px;" class="add_to_heart">
+                                        <i class="far fa-heart"></i> Add to Wishlist
+                                    </button>
+                                </a>
+                            </div>
+<!--                            <input type="hidden" name="product_id" class="product_id" th:value="${product.id}">-->
+<!--                            <button style="border: none; background-color: red; color: #fff; border-radius: 10px 10px;" class="add_to_heart">-->
+<!--                                <i class="far fa-heart"></i> Add to Wishlist-->
+<!--                            </button>-->
                         </div>
                         <div class="sd-category">
                             <span class="title">CATEGORY:</span>

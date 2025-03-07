@@ -4,11 +4,11 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb-content">
-<!--                        <h2 class="title" th:text="${cat.name}"></h2>-->
+                        <!--                        <h2 class="title" th:text="${cat.name}"></h2>-->
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-<!--                                <li class="breadcrumb-item active" aria-current="page" th:text="${cat.name}"></li>-->
+                                <!--                                <li class="breadcrumb-item active" aria-current="page" th:text="${cat.name}"></li>-->
                             </ol>
                         </nav>
                     </div>
@@ -30,22 +30,22 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="shop-ordering">
-                                        <form th:action="@{/shop}" method="GET" class="form">
-                                            <div class="row">
-                                                <div class="col-xl-4 col-md-9">
-                                                    <select name="order" class="form-control">
-                                                        <option value="">Default</option>
-                                                        <option value="id-asc" th:selected="${order == 'id-asc'}">Sort ascending by id</option>
-                                                        <option value="id-desc" th:selected="${order == 'id-desc'}">Sort descending by id</option>
-                                                        <option value="name-asc" th:selected="${order == 'name-asc'}">Sort ascending by name</option>
-                                                        <option value="name-desc" th:selected="${order == 'name-desc'}">Sort descending by name</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-xl-4 col-md-3">
-                                                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-                                                </div>
-                                            </div>
-                                        </form>
+<!--                                        <form th:action="@{/shop}" method="GET" class="form">-->
+<!--                                            <div class="row">-->
+<!--                                                <div class="col-xl-4 col-md-9">-->
+<!--                                                    <select name="order" class="form-control">-->
+<!--                                                        <option value="">Default</option>-->
+<!--                                                        <option value="id-asc" th:selected="${order == 'id-asc'}">Sort ascending by id</option>-->
+<!--                                                        <option value="id-desc" th:selected="${order == 'id-desc'}">Sort descending by id</option>-->
+<!--                                                        <option value="name-asc" th:selected="${order == 'name-asc'}">Sort ascending by name</option>-->
+<!--                                                        <option value="name-desc" th:selected="${order == 'name-desc'}">Sort descending by name</option>-->
+<!--                                                    </select>-->
+<!--                                                </div>-->
+<!--                                                <div class="col-xl-4 col-md-3">-->
+<!--                                                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>-->
+<!--                                                </div>-->
+<!--                                            </div>-->
+<!--                                        </form>-->
                                     </div>
                                 </div>
                             </div>
@@ -72,26 +72,27 @@
                                         </span>
                                             <span th:unless="${prod.salePrice > 0}" class="price"
                                                   th:text="${#numbers.formatInteger(prod.price,3,'COMMA')} + ' VND'"></span>
+                                            <div th:if="${session.cus != null}">
+                                                <a th:if="${prod.favorited}" title="Bỏ thích" onclick="return confirm('Bạn có muốn bỏ thích không')"
+                                                   th:href="@{/favorite/delete/{id}(id=${prod.favoriteId})}">
+                                                    <i class="fas fa-heart"></i>
+                                                </a>
+                                                <a th:unless="${prod.favorited}" title="Yêu thích" th:href="@{/favorite/insert/{id}(id=${prod.id})}">
+                                                    <i class="far fa-heart"></i>
+                                                </a>
+                                                <!--                <button style="border: none; background-color: #fff;" class="add_to_cart" title="Thêm vào giỏ hàng">-->
+                                                <!--                  <i class="fa fa-shopping-cart"></i>-->
+                                                <!--                </button>-->
+                                                <!--                <input class="product_id" type="hidden" name="product_id" th:value="${sp.id}">-->
+                                                <a th:href="@{/cart/insert/{id}(id=${prod.id})}">
+                                                    <i class="fas fa-shopping-cart"></i>
+                                                </a>
+                                            </div>
 
-<!--                                            <div th:if="${#authorization.expression('isAuthenticated()')}">-->
-<!--                                                <button th:if="${prod.favorited}" class="btn-fav"-->
-<!--                                                        th:onclick="|confirm('Bạn có muốn bỏ thích không') ? window.location.href='@{/favorite/{id}(id=${prod.id})}' : ''|">-->
-<!--                                                    <i class="fas fa-heart"></i>-->
-<!--                                                </button>-->
-<!--                                                <button th:unless="${prod.favorited}" class="btn-fav"-->
-<!--                                                        th:onclick="|window.location.href='@{/favorite/{id}(id=${prod.id})}'|">-->
-<!--                                                    <i class="far fa-heart"></i>-->
-<!--                                                </button>-->
-<!--                                                <button class="add_to_cart"-->
-<!--                                                        th:onclick="|window.location.href='@{/cart/add/{id}(id=${prod.id})}'|">-->
-<!--                                                    <i class="fa fa-shopping-cart"></i>-->
-<!--                                                </button>-->
-<!--                                            </div>-->
-<!--                                            <div th:unless="${#authorization.expression('isAuthenticated()')}">-->
-<!--                                                <a th:href="@{/login}" onclick="alert('Vui lòng đăng nhập để thêm giỏ hàng')">-->
-<!--                                                    <i class="fa fa-shopping-cart"></i>-->
-<!--                                                </a>-->
-<!--                                            </div>-->
+                                            <a th:unless="${session.cus != null}" title="Thêm vào giỏ hàng" th:href="@{/acc/login}"
+                                               onclick="alert('Vui lòng đăng nhập để thêm giỏ hàng')">
+                                                <i class="fa fa-shopping-cart"></i>
+                                            </a>
                                         </div>
                                         <div class="product-shape-two">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 303 445" preserveAspectRatio="none">
@@ -123,9 +124,9 @@
                                 <div class="shop-cat-list">
                                     <ul class="list-wrap">
                                         <li th:each="cat : ${cats_home}">
-                                            <a th:href="@{/category/{id}(id=${cat.id})}" class="form-check-label">
+                                            <a th:href="@{/product/{id}(id=${cat.id})}" class="form-check-label">
                                                 <span th:text="${cat.name}"></span>
-                                                (<span th:text="${#lists.size(cat.products)}"></span>)
+                                                <span th:text="${#lists.size(cat.products)}"></span>
                                             </a>
                                         </li>
                                     </ul>
@@ -157,7 +158,7 @@
                         </div>
                     </div>
                 </div>
-<!--                <div th:replace="fragments/pagination :: pagination(${products})"></div>-->
+                <!--                <div th:replace="fragments/pagination :: pagination(${products})"></div>-->
             </div>
         </div>
     </section>

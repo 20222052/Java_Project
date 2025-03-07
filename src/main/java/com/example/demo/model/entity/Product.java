@@ -36,4 +36,23 @@ public class Product {
     // Thêm mối quan hệ với bảng PrdImages
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)  // mappedBy xác định thuộc tính bên lớp con
     private List<PrdImages> images;  // Danh sách các hình ảnh của sản phẩm
+
+    // Quan hệ với bảng carts
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<Cart> carts;
+
+
+    @ManyToOne
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    private Product product;
+
+    @Transient  // Không ánh xạ vào DB
+    private boolean favorited;
+
+    @Transient  // Không ánh xạ vào DB
+    private Integer favoriteId;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<OrderDetail> orderDetails; // Một sản phẩm có thể xuất hiện trong nhiều đơn hàng
+
 }
