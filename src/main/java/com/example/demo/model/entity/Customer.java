@@ -3,15 +3,10 @@ package com.example.demo.model.entity;
 import com.example.demo.model.entity.Order;
 import com.example.demo.validation.UniqueField;
 import jakarta.persistence.*;
-import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.validation.annotation.Validated;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -23,7 +18,6 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Validated
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,9 +43,6 @@ public class Customer {
     @Size(min = 8,max = 100, message = "Mật khẩu phải nằm trong khoảng 8 đến 100 kí tự")
     private String password;
 
-    @Transient
-    private String confirmPassword;
-
     @Column()
     private Date emailVerifiedAt;
 
@@ -61,7 +52,18 @@ public class Customer {
     @Column()
     private Date updatedAt;
 
+    @Transient  // Không ánh xạ vào DB
+    private Integer quantityPrdCart = 0;
+
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Comment> comment = new ArrayList<>();
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Favorite> favorites = new ArrayList<>();
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = new Date();
+    }
 
 }
