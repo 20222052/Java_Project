@@ -25,7 +25,7 @@ public class SecurityConfig {
                     .authorizeHttpRequests(authorizeRequests ->
                             authorizeRequests
                                     .requestMatchers("/admin/login","/admin/user").permitAll()
-                                    .requestMatchers("/admin/**").authenticated()
+                                    .requestMatchers("/admin/**").hasAnyRole("ADMIN", "EDITOR","USER")
                                     .anyRequest().permitAll()
                     )
                     .formLogin(formLogin ->
@@ -53,7 +53,7 @@ public class SecurityConfig {
                 return org.springframework.security.core.userdetails.User
                         .withUsername(user.getEmail())
                         .password(user.getPassword())
-                        .roles("USER")
+                        .roles(user.getRole())
                         .build();
             } else {
                 throw new UsernameNotFoundException("Email not found: " + email);

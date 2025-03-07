@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <base href="/">
   <meta charset="utf-8">
@@ -23,7 +24,8 @@
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>LT</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>Admin</b>LTE</span>
+
+      <span class="logo-lg"><b>ADMIN</b>LTE</span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -40,7 +42,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img th:src="@{/ad_assets/dist/img/user2-160x160.jpg}" class="user-image" alt="User Image">
-              <span class="hidden-xs">ADMIN</span>
+              <span class="hidden-xs" sec:authentication="name"></span>
             </a>
           </li>
         </ul>
@@ -60,7 +62,7 @@
           <img th:src="@{/ad_assets/dist/img/user2-160x160.jpg}" class="user-image" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>ADMIN</p>
+          <p sec:authentication="name"></p>
           <a th:href="@{/admin/logout}">
             <i class="fa fa-circle text-success"></i> Logout
           </a>
@@ -167,6 +169,9 @@
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
+<!--    <div id="message"  style="color: red; font-size: 20px; background-color: white">-->
+<!--      <p th:text="${message}">okkokokokookok</p>-->
+<!--    </div>-->
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <th:block th:replace="|admin/${page ?: 'customer'}/${content ?: 'index'}.html| :: content"></th:block>
@@ -213,6 +218,14 @@
     reserved.
   </footer>
 
+  <script>
+    // setTimeout(function() {
+    //   var messageDiv = document.getElementById("message");
+    //   if (messageDiv) {
+    //     messageDiv.style.display = "none";
+    //   }
+    // }, 2000);
+  </script>
 <script th:src="@{/ad_assets/plugins/jQuery/jQuery-2.2.0.min.js}"></script>
 <script th:src="@{/ad_assets/bootstrap/js/bootstrap.min.js}"></script>
 <script th:src="@{/ad_assets/plugins/slimScroll/jquery.slimscroll.min.js}"></script>

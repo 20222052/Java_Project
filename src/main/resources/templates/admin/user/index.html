@@ -28,13 +28,14 @@
       <td th:text="${user.email}"></td>
       <td th:text="${user.role}"></td>
       <td class="text-right">
-        <form th:action="@{/admin/user/{id}/delete(id=${user.id})}" method="POST">
+        <form th:action="@{/admin/user/delete/{id}(id=${user.id})}" method="POST">
           <input type="hidden" name="_method" value="DELETE"/>
-          <a th:href="@{/admin/user/{id}/edit(id=${user.id})}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
-          <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete it?')">
+          <a  th:href="@{/admin/user/edit/{id}(id=${user.id})}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
+          <button th:if="${user.email != #authentication.name}" type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete it?')">
             <i class="fa fa-trash"></i>
           </button>
         </form>
+
       </td>
     </tr>
     </tbody>

@@ -47,7 +47,7 @@
                         <div class="header-top-menu">
                             <ul class="list-wrap">
                                 <li th:if="${session.cus != null}">
-                                    <a th:href="@{/account/profilemain}">Hi <span th:text="${session.cus.name}"></span></a>
+                                    <a th:href="@{/account/profilemain}">Hi <span th:text="${session.cus.name}+${session.cus.id}"></span></a>
                                 </li>
                                 <li th:if="${session.cus != null}"><a th:href="@{/acc/change_password}">Change Password</a></li>
                                 <li th:if="${session.cus != null}"><a th:href="@{/acc/favorite}">Favorites</a></li>

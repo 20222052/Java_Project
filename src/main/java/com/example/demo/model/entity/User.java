@@ -28,6 +28,9 @@ public class User {
     @Column(length = 200, nullable = false)
     private String password;
 
+    @Transient
+    private String confirmPassword;
+
     @Column
     private String role;
 

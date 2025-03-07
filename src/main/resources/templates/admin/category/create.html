@@ -1,0 +1,41 @@
+<div th:fragment="content">
+  <div class="row">
+    <div class="col-md-4">
+
+      <form th:action="@{/admin/category/save}" method="post" th:object="${category}" role="form">
+        <div class="form-group">
+          <label>Category name</label>
+          <input type="text" class="form-control" name="name" th:field="*{name}" placeholder="Input field">
+
+          <!-- Hiển thị lỗi -->
+          <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+        </div>
+
+        <div class="form-group">
+          <label>Category Status</label>
+
+          <div class="radio">
+            <label>
+              <input type="radio" name="status" value="1" th:checked="${category.status == 1}" />
+              Publish
+            </label>
+          </div>
+
+          <div class="radio">
+            <label>
+              <input type="radio" name="status" value="0" th:checked="${category.status == 0}" />
+              Hidden
+            </label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+          <i class="fa fa-save"></i> Save
+        </button>
+      </form>
+
+    </div>
+  </div>
+
+
+</div>

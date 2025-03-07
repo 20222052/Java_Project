@@ -12,6 +12,7 @@ import java.util.List;
 @Repository
 
 public interface ProductRepository extends JpaRepository<Product,Integer> {
+    boolean existsByCategoryId(int categoryId);
     List<Product> findTop4ByOrderByCreatedAtDesc();
     List<Product> findTop4ByOrderByCreatedAtAsc();
     List<Product> findTop6ByOrderByCreatedAtAsc();
