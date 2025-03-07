@@ -45,16 +45,16 @@
                             </div>
 
                             <h3 class="comment-reply-title">Comment</h3>
-<!--                            <div th:each="comm : ${comments}" class="blog-avatar-wrap">-->
-<!--                                <div class="blog-avatar-info">-->
-<!--                                    <h4 class="name" th:text="${comm.customer.name}"></h4>-->
-<!--                                    <p th:text="${comm.comment}"></p>-->
-<!--                                    <a th:href="@{'/comment/edit/' + ${comm.id}}" class="btn btn-primary btn-sm">Sửa</a>-->
-<!--                                    <form th:action="@{'/comment/delete/' + ${comm.id}}" method="post" style="display:inline;">-->
-<!--                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Xóa</button>-->
-<!--                                    </form>-->
-<!--                                </div>-->
-<!--                            </div>-->
+                            <div th:each="comm : ${comments}" class="blog-avatar-wrap">
+                                <div class="blog-avatar-info">
+                                    <h4 class="name" th:text="${comm.customer.name}"></h4>
+                                    <p th:text="${comm.comment}"></p>
+                                    <a th:href="@{'/comment/edit/' + ${comm.id}}" class="btn btn-primary btn-sm">Sửa</a>
+                                    <form th:action="@{'/comment/delete/' + ${comm.id}}" method="post" style="display:inline;">
+                                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Xóa</button>
+                                    </form>
+                                </div>
+                            </div>
 
 <!--                            <div class="comment-respond">-->
 <!--                                <h3 class="comment-reply-title">Leave A Comment</h3>-->
@@ -70,7 +70,7 @@
 <!--                                <div th:unless="${#httpServletRequest.remoteUser}" class="alert alert-danger" role="alert">-->
 <!--                                    <strong>Sign in to comment!</strong> <a th:href="@{/login}">Click here to login</a>-->
 <!--                                </div>-->
-<!--                            </div>-->
+                            </div>
                         </div>
                     </div>
                 </div>

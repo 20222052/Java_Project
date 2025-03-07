@@ -44,10 +44,10 @@
             <td th:text="${blog.position}"></td>
             <td th:text="${blog.status == 1 ? 'Publish' : 'Hidden'}"></td>
             <td th:text="${blog.createdAt}"></td>
-            <td>
+            <td sec:authorize="hasAnyRole('ADMIN', 'EDITOR')">
                 <a th:href="@{'/admin/blog/edit/' + ${blog.id}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                 <form th:action="@{/admin/blog/delete/{id}(id=${blog.id})}" method="post" style="display:inline;">
-                    <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure want to delete it?')">
+                    <button  class="btn btn-sm btn-danger" onclick="return confirm('Are you sure want to delete it?')">
                         <i class="fa fa-trash"></i>
                     </button>
                 </form>

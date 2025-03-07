@@ -1,42 +1,41 @@
 <div th:fragment="content">
-  <form action="/admin/user/save" method="POST">
+  <form action="/admin/user/save" method="POST"  th:object="${user}" sec:authorize="hasRole('ADMIN')">
     <div class="form-group">
       <label>User name</label>
-      <input type="text" name="name" class="form-control" placeholder="Name" th:value="${user.name}">
-      <small th:if="${#fields.hasErrors('name')}" th:text="${#fields.errors('name')}"></small>
+      <input type="text" name="name" class="form-control" th:field="*{name}" placeholder="Name" >
+      <span th:if="${#fields.hasErrors('name')}" th:text="${#fields.errors('name')}" style="color:red"></span>
     </div>
 
     <div class="form-group">
       <label>User Email</label>
-      <input type="text" name="email" class="form-control" placeholder="Email" th:value="${user.email}">
-      <small th:if="${#fields.hasErrors('email')}" th:text="${#fields.errors('email')}"></small>
+      <input type="text" name="email" class="form-control" th:field="*{email}" placeholder="Email" >
+      <span th:if="${#fields.hasErrors('email')}" th:text="${#fields.errors('email')}" style="color:red"></span>
     </div>
 
     <div class="form-group">
       <label>Role Management</label>
       <div class="radio" >
-        <label><input type="radio" name="role" value="USER" th:checked="${user.role == 'USER' or user.role == null}"> USER</label>
+        <label><input type="radio" name="role" value="USER" > USER</label>
       </div>
-      <div class="radio" sec:authorize="hasRole('ADMIN') or hasRole('EDITOR')">
-        <label><input type="radio" name="role" value="EDITOR" th:checked="${user.role == 'EDITOR'}"> EDITOR</label>
+      <div class="radio" >
+        <label><input type="radio" name="role" value="EDITOR" > EDITOR</label>
       </div>
-      <div class="radio" sec:authorize="hasRole('ADMIN')">
-        <label><input type="radio" name="role" value="ADMIN" th:checked="${user.role == 'ADMIN'}"> ADMIN</label>
+      <div class="radio" >
+        <label><input type="radio" name="role" value="ADMIN" > ADMIN</label>
       </div>
     </div>
 
     <div class="form-group">
       <label>User Password</label>
-      <input type="password" name="password" class="form-control" placeholder="Password">
-      <small th:if="${#fields.hasErrors('password')}" th:text="${#fields.errors('password')}"></small>
+      <input type="password" name="password" class="form-control" th:field="*{password}" placeholder="Password">
+      <span th:if="${#fields.hasErrors('password')}" th:text="${#fields.errors('password')}" style="color:red"></span>
     </div>
 
     <div class="form-group">
       <label>Confirm Password</label>
-      <input type="password" name="re_password" class="form-control" placeholder="Confirm Password">
-      <small th:if="${#fields.hasErrors('re_password')}" th:text="${#fields.errors('re_password')}"></small>
+      <input type="password" name="confirmPassword" th:field="*{confirmPassword}" class="form-control" placeholder="Confirm Password">
+      <span th:if="${#fields.hasErrors('confirmPassword')}" th:text="${#fields.errors('confirmPassword')}" style="color:red"></span>
     </div>
-
     <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
   </form>
 

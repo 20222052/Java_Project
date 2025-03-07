@@ -24,16 +24,17 @@ public class SecurityConfig {
             http
                     .authorizeHttpRequests(authorizeRequests ->
                             authorizeRequests
-                                    .requestMatchers("/admin/login","/admin/user").permitAll()
+                                    .requestMatchers("/admin/login").permitAll()
                                     .requestMatchers("/admin/**").hasAnyRole("ADMIN", "EDITOR","USER")
                                     .anyRequest().permitAll()
                     )
+                    .csrf(csrf -> csrf.disable())
                     .formLogin(formLogin ->
                             formLogin
                                     .loginPage("/admin/login")
                                     .loginProcessingUrl("/admin/login")
                                     .failureUrl("/admin/logout")
-                                    .defaultSuccessUrl("/admin/customer", true)
+                                    .defaultSuccessUrl("/admin/category", true)
                     )
                     .logout(logout ->
                             logout.permitAll()

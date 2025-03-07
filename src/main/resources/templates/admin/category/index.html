@@ -45,7 +45,7 @@
             <td th:text="${#dates.format(cats.created_at, 'dd/MM/yyyy')}"></td>
             <td th:text="${cats.status == 1 ? 'Publish' : 'Hidden'}"></td>
 
-            <td class="text-right">
+            <td class="text-right" sec:authorize="hasAnyRole('ADMIN', 'EDITOR')">
                 <form th:action="@{/admin/category/delete/{id}(id=${cats.id})}" method="POST">
                     <input type="hidden" name="_method" value="DELETE">
                     <a th:href="@{/admin/category/edit/{id}(id=${cats.id})}" class="btn btn-sm btn-primary">

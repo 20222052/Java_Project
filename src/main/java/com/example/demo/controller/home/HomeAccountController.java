@@ -119,5 +119,14 @@ public class HomeAccountController {
         customerservice.save(customer);
         return "redirect:/";
     }
+    @GetMapping("/forgetPassword")
+    public String forgetPassword() {
+        return "account/forgetPassword";
+    }
+
+    @PostMapping("/forgetPassword")
+    public String newPassword(@ModelAttribute("customer") Customer customer) {
+        return "account/forgetPassword";
+    }
 }
 

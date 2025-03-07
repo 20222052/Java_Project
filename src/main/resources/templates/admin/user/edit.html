@@ -1,5 +1,5 @@
 <div th:fragment="content">
-  <form action="/admin/user/update" method="POST">
+  <form action="/admin/user/update" method="POST" th:object="${user}" sec:authorize="hasRole('ADMIN')">
     <input type="hidden" name="_method" value="PUT"/>
     <input type="hidden" name="id" th:value="${user.id}"/>
 
@@ -18,20 +18,20 @@
       <div class="radio" >
         <label><input type="radio" name="role" value="USER" th:checked="${user.role == 'USER'}"> User</label>
       </div>
-      <div class="radio" sec:authorize="hasRole('ADMIN') or hasRole('EDITOR')">
+      <div class="radio" >
         <label><input type="radio" name="role" value="EDITOR" th:checked="${user.role == 'EDITOR'}"> Editor</label>
       </div>
-      <div class="radio" sec:authorize="hasRole('ADMIN')">
-        <label><input type="radio" name="role" value="ADMIN" th:checked="${user.role == 'ADMIN'}"> Admin</label>
+      <div class="radio" >
+        <label><input type="radio" name="role" value="ADMIN" th:checked="${user.role == 'ADMIN'}" > Admin</label>
       </div>
     </div>
 
-    <div class="form-group">
+    <div class="form-group" th:if="${user.email == #authentication.name}">
       <label>User Password</label>
-      <input type="password" name="password" class="form-control" placeholder="Password">
+      <input type="password" name="password" class="form-control" placeholder="Password" th:value="${user.password}">
     </div>
 
-    <div class="form-group">
+    <div class="form-group" th:if="${user.email == #authentication.name}">
       <label>Confirm Password</label>
       <input type="password" name="re_password" class="form-control" placeholder="Confirm Password">
     </div>

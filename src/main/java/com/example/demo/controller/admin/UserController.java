@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import jakarta.servlet.http.HttpSession;
@@ -32,10 +33,11 @@ public class UserController {
         model.addAttribute("content1" , "List Users");
         return "master/main_admin";
     }
+
     @GetMapping("/create")
     public String create(Model model) {
-        model.addAttribute("category" ,new Category());
-        model.addAttribute("content1" , "Add category");
+        model.addAttribute("user" ,new User());
+        model.addAttribute("content1" , "Add user");
         model.addAttribute("content" , "create");
         return "master/main_admin";
     }
@@ -45,6 +47,18 @@ public class UserController {
         if (result.hasErrors()) {
             model.addAttribute("user", user);
             model.addAttribute("content" , "create");
+            return "master/main_admin";
+        }
+        if (!user.getPassword().equals(user.getConfirmPassword())) {
+            model.addAttribute("user", user);
+            model.addAttribute("content" , "create");
+            result.addError(new FieldError("user", "confirmPassword", "Mật khẩu xác nhận không khớp!"));
+            return "master/main_admin";
+        }
+        if (userService.findUserByEmail(user.getEmail()) != null) {
+            model.addAttribute("user", user);
+            model.addAttribute("content" , "create");
+            result.addError(new FieldError("user", "email", "Email đã được sử dụng"));
             return "master/main_admin";
         }
         userService.insertUser(user);
@@ -80,8 +94,11 @@ public class UserController {
             model.addAttribute("content" , "edit");
             return "master/main_admin";
         }
-
-        userService.insertUser(user);
+        if (!user.getPassword().equals(userService.findUserById(user.getId()).getPassword())) {
+            userService.insertUser(user);
+        }else {
+            userService.updateUser(user);
+        }
         redirectAttributes.addFlashAttribute("success", " Edit successfully!");
 
         return "redirect:/admin/user";

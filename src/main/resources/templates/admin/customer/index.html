@@ -1,4 +1,22 @@
 <div th:fragment="content">
+    <form class="form-inline" method="get" action="/admin/customer">
+        <div class="form-group">
+            <input  class="form-control" type="text" name="name" placeholder="Nhập tên..." th:value="${name}" />
+            <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+        </div>
+        <div class="form-group">
+            <label >Arrange</label>
+            <select name="order" class="form-control">
+                <option value="">Default</option>
+                <option value="id-asc" th:selected="${order == 'id-asc'}">Sort ascending by ID</option>
+                <option value="id-desc" th:selected="${order == 'id-desc'}">Sort descending by ID</option>
+                <option value="name-asc" th:selected="${order == 'name-asc'}">Sort ascending by name</option>
+                <option value="name-desc" th:selected="${order == 'name-desc'}">Sort descending by name</option>
+                <option value="created_at-asc" th:selected="${order == 'created_at-asc'}">Sort ascending by created_at</option>
+                <option value="created_at-desc" th:selected="${order == 'created_at-desc'}">Sort descending by created_at</option>
+            </select>
+        </div>
+    </form>
         <table class="table table-hover" >
             <thead>
             <tr>
@@ -21,7 +39,7 @@
                 <td th:text="${cus.address}"></td>
                 <td th:text="${cus.gender == 0 ? 'Nu' : 'Nam'}"></td>
                 <td th:text="${#dates.format(cus.createdAt, 'dd/MM/yyyy')}"></td>
-                <td>
+                <td sec:authorize="hasAnyRole('ADMIN', 'EDITOR')">
                     <a th:href="@{/admin/customer/edit/{id}(id=${cus.id})}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                     <form th:action="@{/admin/customer/delete/{id}(id=${cus.id})}" method="post" style="display:inline;">
                         <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure want to delete it?')"><i class="fa fa-trash"></i></button>
@@ -30,5 +48,10 @@
             </tr>
             </tbody>
         </table>
+    <div>
+        <a th:if="${currentPage > 0}" th:href="@{/admin/customer(page=${currentPage - 1}, size=10, name=${name}, order = ${order})}">Previous</a>
+        <span>Page [[${currentPage + 1}]] of [[${totalPages}]]</span>
+        <a th:if="${currentPage + 1 < totalPages}" th:href="@{/admin/customer(page=${currentPage + 1}, size=10, name=${name}, order = ${order})}">Next</a>
+    </div>
 </div>
 

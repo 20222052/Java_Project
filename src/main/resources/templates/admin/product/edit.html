@@ -1,6 +1,6 @@
 <div th:fragment="content">
   <div class="row">
-    <form th:action="@{/admin/product/update}" method="post" th:object="${product}" enctype="multipart/form-data">
+    <form th:action="@{/admin/product/update}" method="post" th:object="${product}" enctype="multipart/form-data" sec:authorize="hasAnyRole('ADMIN', 'EDITOR')">
       <input type="text" class="form-control" name="id" th:value="${product.id}" placeholder="Input field" style="display: none;">
 
       <div class="col-md-9">

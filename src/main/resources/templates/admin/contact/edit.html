@@ -1,6 +1,6 @@
 <div th:fragment="content">
   <div class="row">
-    <form th:action="@{/admin/contact/update}" method="POST" enctype="multipart/form-data">
+    <form th:action="@{/admin/contact/update}" method="POST" enctype="multipart/form-data" sec:authorize="hasAnyRole('ADMIN', 'EDITOR')">
       <div class="col-md-12">
         <input type="hidden" name="id" th:value="${contact?.id}">
         <div class="form-group">

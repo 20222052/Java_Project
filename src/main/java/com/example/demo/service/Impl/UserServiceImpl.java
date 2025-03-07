@@ -16,6 +16,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
+    BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     @Override
     public User findUserByEmail(String email) {
         return userRepository.findUserByEmail(email);
@@ -28,6 +29,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User insertUser(User user) {
+        if (user.getPassword() != null || !user.getPassword().isEmpty()) {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        }
         return userRepository.save(user);
     }
 
@@ -57,4 +61,5 @@ public class UserServiceImpl implements UserService {
     public User findUserById(Integer id) {
         return userRepository.findById(id).orElse(null);
     }
+
 }

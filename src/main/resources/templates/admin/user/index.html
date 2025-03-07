@@ -27,7 +27,7 @@
       <td th:text="${user.name}"></td>
       <td th:text="${user.email}"></td>
       <td th:text="${user.role}"></td>
-      <td class="text-right">
+      <td class="text-right" sec:authorize="hasRole('ADMIN')" >
         <form th:action="@{/admin/user/delete/{id}(id=${user.id})}" method="POST">
           <input type="hidden" name="_method" value="DELETE"/>
           <a  th:href="@{/admin/user/edit/{id}(id=${user.id})}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
@@ -35,7 +35,6 @@
             <i class="fa fa-trash"></i>
           </button>
         </form>
-
       </td>
     </tr>
     </tbody>

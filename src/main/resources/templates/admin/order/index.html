@@ -31,7 +31,7 @@
                     </span>
                 </td>
                 <td th:text="${#dates.format(item.createdAt, 'dd/MM/yyyy')}"></td>
-                <td>
+                <td sec:authorize="hasAnyRole('ADMIN', 'EDITOR')">
                     <a th:href="@{/admin/order/edit/{id}(id=${item.id})}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></a>
                 </td>
             </tr>

@@ -1,6 +1,6 @@
 <div th:fragment="content">
     <div class="row">
-        <form th:action="@{/admin/customer/update}" method="POST" enctype="multipart/form-data">
+        <form th:action="@{/admin/customer/update}" method="POST" enctype="multipart/form-data" sec:authorize="hasAnyRole('ADMIN', 'EDITOR')">
             <div class="col-md-12">
                 <input type="hidden" name="id" th:value="${customer?.id}" style="display: none">
                 <div class="form-group">
@@ -23,9 +23,9 @@
                     <input type="text" id="address" name="address" class="form-control" placeholder="Input field" th:value="${customer?.address}">
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" style="display: none">
                     <label for="password">Customer Password</label>
-                    <input type="password" id="password" name="password" class="form-control" placeholder="Input field">
+                    <input type="password" id="password" name="password" class="form-control" th:value="${customer?.password}" placeholder="Input field">
                 </div>
 
                 <div class="form-group">

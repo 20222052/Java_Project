@@ -1,6 +1,6 @@
 <div th:fragment="content">
   <div class="row">
-    <form th:action="@{/admin/blog/save}" method="POST" enctype="multipart/form-data">
+    <form th:action="@{/admin/blog/save}" method="POST" enctype="multipart/form-data" sec:authorize="hasAnyRole('ADMIN', 'EDITOR')">
       <div class="col-md-12">
         <div class="form-group">
           <label for="name">Blog Name</label>

@@ -1,6 +1,6 @@
 <div th:fragment="content">
   <div class="row">
-    <form th:action="@{/admin/product/save}" method="post" th:object="${product}" enctype="multipart/form-data">
+    <form th:action="@{/admin/product/save}" method="post" th:object="${product}" enctype="multipart/form-data" sec:authorize="hasAnyRole('ADMIN', 'EDITOR')">
       <div class="col-md-9">
 
         <div class="form-group">

@@ -27,7 +27,6 @@ public class ProductController {
     public void addAtributes(Model model) {
         model.addAttribute("page" , "product");
     }
-
     @GetMapping({"","/"})
     private String index(Model model) {
         List<Product> list_prd = productService.getAllProducts();
@@ -68,7 +67,6 @@ public class ProductController {
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "Error deleting!");
         }
-
         return "redirect:/admin/product";
     }
 

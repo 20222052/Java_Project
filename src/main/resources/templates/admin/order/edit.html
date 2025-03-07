@@ -9,7 +9,7 @@
     </span>
 <br><br>
     <div th:if="${order.status == 0}">
-        <form th:action="@{/admin/order/update/{id}(id=${order.id})}" method="post">
+        <form th:action="@{/admin/order/update/{id}(id=${order.id})}" method="post" sec:authorize="hasAnyRole('ADMIN', 'EDITOR')">
             <input type="hidden" name="status" value="1"/>
             <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xác nhận đơn hàng này?')">
                 Xác nhận

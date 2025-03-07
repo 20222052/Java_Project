@@ -5,7 +5,7 @@
             <input type="text" class="form-control" name="keyword" placeholder="Input field" th:value="${keyword}">
         </div>
         <div class="form-group">
-            <label for="order">Sort</label>
+            <label>Sort</label>
             <select name="order" class="form-control">
                 <option value="">Default</option>
                 <option value="id-asc" th:selected="${order == 'id-asc'}">Sort ascending by ID</option>
@@ -39,7 +39,7 @@
             <td th:text="${contact.subject}"></td>
             <td th:text="${contact.message}"></td>
             <td th:text="${contact.status == 0 ? 'Unread' : 'Read'}"></td>
-            <td>
+            <td sec:authorize="hasAnyRole('ADMIN', 'EDITOR')">
                 <form th:action="@{/admin/contact/delete/{id}(id=${contact.id})}" method="post" style="display:inline;">
                     <button class="btn btn-sm btn-danger" onclick="return confirm('Are you sure want to delete it?')">
                         <i class="fa fa-trash"></i>
