@@ -22,4 +22,7 @@ public interface ProductRepository extends JpaRepository<Product,Integer> {
     List<Product> findByCategoryIdOrderByIdDesc(Integer categoryId);
     List<Product> findByCategoryIdOrderByNameAsc(Integer categoryId);
     List<Product> findByCategoryIdOrderByNameDesc(Integer categoryId);
+    List<Product> findProductsByName(String name);
+    List<Product> findByNameContainingIgnoreCase(String keyword);
+
 }

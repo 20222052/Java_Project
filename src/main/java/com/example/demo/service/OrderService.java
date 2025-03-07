@@ -11,5 +11,5 @@ public interface OrderService {
     void deleteById(Integer order_id);
     Order insert(Order order);
     Order updateById(Integer id, Order order);
-
+    List<Order> findByCustomerId(Integer customer_id);
 }

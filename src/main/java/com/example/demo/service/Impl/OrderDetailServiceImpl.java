@@ -30,7 +30,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
     @Override
     public void insert(OrderDetail orderDetail) {
-
+        repo.save(orderDetail);
     }
 
     @Override

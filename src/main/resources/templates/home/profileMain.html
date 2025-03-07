@@ -1,0 +1,73 @@
+
+
+<div th:fragment="content">
+    <!-- main-area -->
+    <main>
+        <!-- breadcrumb-area -->
+        <section class="breadcrumb-area tg-motion-effects breadcrumb-bg" data-background="uploads/bg/breadcrumb_bg.jpg">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="breadcrumb-content">
+                            <h2 class="title">Your profile</h2>
+                            <nav aria-label="breadcrumb">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#" th:href="@{/}">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Register</li>
+                                </ol>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- breadcrumb-area-end -->
+    </main>
+    <!-- main-area-end -->
+
+    <div class="container">
+        <div style="text-align: left;">
+            <br>
+            <h3><b>Customer Information</b></h3>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <td th:text="${auth.name}"></td>
+                    </tr>
+                    <tr>
+                        <th>Phone</th>
+                        <td th:text="${auth.phone}"></td>
+                    </tr>
+                    <tr>
+                        <th>Gender</th>
+                        <td th:text="${auth.gender == 1 ? 'Male' : 'Female'}"></td>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+            <div class="col-md-6">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Address</th>
+                        <td th:text="${auth.address}"></td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td th:text="${auth.email}"></td>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+        <div style="text-align: right;">
+            <a href="#" th:href="@{/acc/profile}">Click here to update your profile</a>
+            <hr>
+        </div>
+    </div>
+</div>

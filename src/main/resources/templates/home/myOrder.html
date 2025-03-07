@@ -1,0 +1,66 @@
+<div th:fragment="content">
+    <!-- breadcrumb-area -->
+    <section class="breadcrumb-area tg-motion-effects breadcrumb-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-content">
+                        <h2 class="title">Order history</h2>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Order history</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Table -->
+    <section class="contact-area">
+        <div class="contact-wrap">
+            <div class="container">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>STT</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Order date</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="order, loop : ${orders}">
+                        <td th:text="${loop.index + 1}"></td>
+                        <td th:text="${order.name}"></td>
+                        <td th:text="${order.address}"></td>
+                        <td th:text="${order.phone}"></td>
+                        <td th:text="${order.email}"></td>
+                        <td th:text="${#dates.format(order.createdAt, 'dd/MM/yyyy')}"></td>
+                        <td>
+                            <span th:if="${order.status == 0}">Chưa xác nhận</span>
+                            <span th:if="${order.status == 1}">Đã xác nhận</span>
+                            <span th:if="${order.status == 2}">Đã giao hàng</span>
+                            <span th:if="${order.status == 3}">Đã Hủy</span>
+                        </td>
+                        <td>
+                            <a th:href="@{/order/detail/{id}(id=${order.id})}" class="btn btn-sm btn-primary">Detail</a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+
+                <br>
+                <div class="text-center">
+                    <a th:href="@{/}" class="btn btn-primary">Continue shopping</a>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

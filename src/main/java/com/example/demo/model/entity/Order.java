@@ -49,4 +49,14 @@ public class Order {
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderDetail> orderDetails;
+
+    public Order(String name, String email, String phone, String address, String token, Integer id, int i) {
+        this.name = name;
+        this.email = email;
+        this.phone = Integer.parseInt(phone);
+        this.address = address;
+        this.token = token;
+        this.customerId = id;
+        this.status = i;
+    }
 }
