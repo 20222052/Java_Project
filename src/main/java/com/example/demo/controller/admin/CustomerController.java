@@ -42,6 +42,7 @@ public class CustomerController {
     @PostMapping("/save")
     public String saveCustomer(@Valid @ModelAttribute("customer") Customer customer, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
+            model.addAttribute("customers", customer);
             model.addAttribute("content" , "create");
             return "master/main_admin";
         }

@@ -15,4 +15,29 @@ public class BannerServiceImpl  implements BannerService {
     public List<Banner> getBanner() {
         return bannerRepository.findBanner();
     }
+
+    @Override
+    public Banner getBannerById(int id) {
+        return null;
+    }
+
+    @Override
+    public Banner findById(int id) {
+        return null;
+    }
+
+    @Override
+    public Banner save(Banner banner) {
+        return null;
+    }
+
+    @Override
+    public Banner update(Banner banner) {
+        return null;
+    }
+
+    @Override
+    public void delete(Banner banner) {
+
+    }
 }

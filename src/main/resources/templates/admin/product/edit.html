@@ -1,0 +1,97 @@
+<div th:fragment="content">
+  <div class="row">
+    <form th:action="@{/admin/product/update}" method="post" th:object="${product}" enctype="multipart/form-data">
+      <input type="text" class="form-control" name="id" th:value="${product.id}" placeholder="Input field" style="display: none;">
+
+      <div class="col-md-9">
+        <div class="form-group">
+          <label>Product name</label>
+          <input type="text" name="name" class="form-control" th:field="*{name}" placeholder="Input field">
+          <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+        </div>
+
+        <div class="form-group">
+          <label>Product Description</label>
+          <textarea name="description" class="form-control description" th:field="*{description}" placeholder="Product content"></textarea>
+          <small th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></small>
+        </div>
+
+        <div class="form-group">
+          <label >Product other Image</label>
+          <input type="file" name="other_img" class="form-control" multiple onchange="showOtherImage(this)">
+          <hr>
+          <div class="row">
+            <div th:each="img : ${product.images}" class="col-md-3" style="position: relative">
+              <a href="" class="thumbnail">
+                <img th:src="@{/uploads/product/{img}(img=${img.image})}" alt="">
+              </a>
+              <a th:href="@{/product/destroyImage/{id}(id=${img.id})}"
+                 onclick="return confirm('Are you sure delete it?')"
+                 style="position: absolute; top:5px; right:20px"
+                 class="btn btn-sm btn-danger">
+                <i class="fa fa-trash"></i>
+              </a>
+            </div>
+          </div>
+          <div class="form-group">
+            <label >Các ảnh mới chọn sẽ thay thế ảnh cũ trước đó</label>
+          </div>
+          <div class="row" id="show_other_img"></div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>Product category</label>
+          <select name="category_id" class="form-control">
+            <option value="">Choice One---</option>
+            <option th:each="cat : ${categories}"
+                    th:value="${cat.id}"
+                    th:text="${cat.name}"
+                    th:selected="${cat.id == product.category.id}">
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label >Product price</label>
+          <input type="text" name="price" class="form-control" th:field="*{price}" placeholder="Input field">
+          <small th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></small>
+        </div>
+
+        <div class="form-group">
+          <label >Product sale price</label>
+          <input type="text" name="sale_price" class="form-control" th:field="*{salePrice}" placeholder="Input field">
+          <small th:if="${#fields.hasErrors('salePrice')}" th:errors="*{salePrice}"></small>
+        </div>
+
+        <div class="form-group">
+          <label >Product Status</label>
+          <div class="radio">
+            <label>
+              <input type="radio" th:field="*{status}" value="1" />
+              Publish
+            </label>
+          </div>
+
+          <div class="radio">
+            <label>
+              <input type="radio" th:field="*{status}" value="0" />
+              Hidden
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label >Product Image</label>
+          <input type="file" name="img" class="form-control" onchange="showImage(this)">
+          <img th:src="@{/uploads/product/{img}(img=${product.image})}" width="100%" id="show_img">
+        </div>
+
+        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+      </div>
+    </form>
+  </div>
+
+
+</div>

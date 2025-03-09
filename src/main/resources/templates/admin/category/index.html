@@ -46,9 +46,9 @@
             <td th:text="${cats.status == 1 ? 'Publish' : 'Hidden'}"></td>
 
             <td class="text-right">
-                <form th:action="@{/admin/categories/{id}/delete(id=${cats.id})}" method="POST">
+                <form th:action="@{/admin/category/delete/{id}(id=${cats.id})}" method="POST">
                     <input type="hidden" name="_method" value="DELETE">
-                    <a th:href="@{/admin/categories/{id}/edit(id=${cats.id})}" class="btn btn-sm btn-primary">
+                    <a th:href="@{/admin/category/edit/{id}(id=${cats.id})}" class="btn btn-sm btn-primary">
                         <i class="fa fa-edit"></i>
                     </a>
                     <button type="submit" class="btn btn-sm btn-danger">

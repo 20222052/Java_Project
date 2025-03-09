@@ -1,10 +1,13 @@
 package com.example.demo.controller.home;
 
 import com.example.demo.model.entity.Blog;
+import com.example.demo.model.entity.Comment;
 import com.example.demo.service.BlogService;
 import com.example.demo.service.CategoryService;
+import com.example.demo.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +26,8 @@ public class HomeBlogController {
 
     @Autowired
     private CategoryService categoryService;
+    @Autowired
+    private CommentService commentService;
     @ModelAttribute
     public void addAtributes(Model model) {
         List lst_category = categoryService.findAll();
@@ -39,6 +44,8 @@ public class HomeBlogController {
 
     @GetMapping("details/{id}")
     public String blogDetail(@PathVariable int id, Model model) {
+        List<Comment> cmm = commentService.findAll();
+        model.addAttribute("comments", cmm);
         Blog blog = homeBlogService.getById(id);
         if (blog == null) {
             return "redirect:/blogs";

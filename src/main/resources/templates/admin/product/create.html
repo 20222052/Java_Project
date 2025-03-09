@@ -1,0 +1,77 @@
+<div th:fragment="content">
+  <div class="row">
+    <form th:action="@{/admin/product/save}" method="post" th:object="${product}" enctype="multipart/form-data">
+      <div class="col-md-9">
+
+        <div class="form-group">
+          <label >Product name</label>
+          <input type="text" name="name" class="form-control" th:field="*{name}" placeholder="Input field">
+          <small th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+        </div>
+
+        <div class="form-group">
+          <label >Product Description</label>
+          <textarea name="description" class="form-control description" th:field="*{description}" placeholder="Product content"></textarea>
+          <small th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></small>
+        </div>
+
+        <div class="form-group">
+          <label >Product other Image</label>
+          <input type="file" name="other_img" class="form-control" multiple onchange="showOtherImage(this)">
+          <hr>
+          <div class="row" id="show_other_img"></div>
+        </div>
+      </div>
+
+      <div class="col-md-3">
+        <div class="form-group">
+          <label>Product category</label>
+          <select name="category_id" class="form-control">
+            <option value="">Choice One---</option>
+            <option th:each="cat : ${categories}" th:value="${cat.id}" th:text="${cat.name}" th:selected="${product.category_id == cat.id}"></option>
+          </select>
+          <small th:if="${#fields.hasErrors('category_id')}" th:errors="*{category_id}"></small>
+        </div>
+
+        <div class="form-group">
+          <label>Product price</label>
+          <input type="text" name="price" class="form-control" th:field="*{price}" placeholder="Input field">
+          <small th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></small>
+        </div>
+
+        <div class="form-group">
+          <label>Product sale price</label>
+          <input type="text" name="sale_price" class="form-control" th:field="*{sale_price}" placeholder="Input field">
+          <small th:if="${#fields.hasErrors('sale_price')}" th:errors="*{sale_price}"></small>
+        </div>
+
+        <div class="form-group">
+          <label >Product Status</label>
+          <div class="radio">
+            <label>
+              <input type="radio" name="status" value="1" th:checked="${product.status == 1}"/>
+              Publish
+            </label>
+          </div>
+
+          <div class="radio">
+            <label>
+              <input type="radio" name="status" value="0" th:checked="${product.status == 0}"/>
+              Hidden
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label >Product Image</label>
+          <input type="file" name="img" class="form-control" onchange="showImage(this)">
+          <img src="" id="show_img" alt="" width="100%">
+        </div>
+
+        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+      </div>
+    </form>
+  </div>
+
+
+</div>

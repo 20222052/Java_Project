@@ -47,9 +47,10 @@
                         <div class="header-top-menu">
                             <ul class="list-wrap">
                                 <li th:if="${session.cus != null}">
-                                    <a th:href="@{/acc/profilemain}">Hi <span th:text="${session.cus.name}"></span></a>
+                                    <a th:href="@{/account/profilemain}">Hi <span th:text="${session.cus.name}+${session.cus.id}"></span></a>
                                 </li>
-                                <li th:if="${session.cus != null}"><a th:href="@{/favorite}">Favorites</a></li>
+                                <li th:if="${session.cus != null}"><a th:href="@{/acc/change_password}">Change Password</a></li>
+                                <li th:if="${session.cus != null}"><a th:href="@{/acc/favorite}">Favorites</a></li>
                                 <li th:if="${session.cus != null}"><a th:href="@{/order/history}">My Orders</a></li>
                                 <li th:if="${session.cus != null}"><a th:href="@{/acc/logout}">Logout</a></li>
 
@@ -74,8 +75,8 @@
                             </div>
                             <div class="navbar-wrap main-menu d-none d-lg-flex">
                                 <ul class="navigation">
-                                    <li class="active"><a th:href="@{/}">Home</a></li>
-                                    <li class="menu-item-has-children">
+                                    <li th:classappend="${page == ''} ? 'active'"><a th:href="@{/}">Home</a></li>
+                                    <li class="menu-item-has-children" th:classappend="${page == 'product'} ? 'active'">
                                         <a th:href="@{/product}">PRODUCTS</a>
                                         <ul class="sub-menu">
                                             <li th:each="cath : ${cats_home}">
@@ -83,8 +84,8 @@
                                             </li>
                                         </ul>
                                     </li>
-                                    <li><a th:href="@{/blogs}">BLOG</a></li>
-                                    <li><a th:href="@{/contact}">Contact</a></li>
+                                    <li th:classappend="${page == 'blog'} ? 'active'"><a th:href="@{/blogs}">BLOG</a></li>
+                                    <li th:classappend="${page == 'contact'} ? 'active'"><a th:href="@{/contact}">Contact</a></li>
                                 </ul>
                             </div>
                             <div class="header-action d-none d-md-block">
@@ -93,9 +94,9 @@
                                         <a href="#"><i class="flaticon-search"></i></a>
                                     </li>
                                     <li id="shoping_cart" class="header-shop-cart">
-                                        <a th:href="@{/cart}">
+                                        <a th:href="@{/cart/index}">
                                             <i class="flaticon-shopping-basket"></i>
-                                            <span th:if="${session.cus != null}" th:text="${session.cus != null and session.cus.quantityPrdCart != null ? session.cus.quantityPrdCart : 0}"></span>
+                                            <span th:text="${carts ?: ''}"></span>
                                         </a>
                                     </li>
                                 </ul>
@@ -114,7 +115,7 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="search-form">
-                            <form th:action="@{/product/search}" method="GET">
+                            <form action="" method="GET">
                                 <input name="keyword" type="text" placeholder="Enter your keyword..." th:value="${param.keyword?:''}">
                                 <button class="search-btn"><i class="flaticon-search"></i></button>
                             </form>
@@ -269,5 +270,6 @@
     <script th:src="@{/assets/js/ajax-form.js}"></script>
     <script th:src="@{/assets/js/wow.min.js}"></script>
     <script th:src="@{/assets/js/main.js}"></script>
+
 </body>
 </html>

@@ -4,10 +4,14 @@ import com.example.demo.model.entity.Product;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -76,6 +80,40 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProductById(Integer proid) {
         productRepository.deleteById(proid);
+    }
+
+    @Override
+    public Page<Product> getProductsByCategory(Integer categoryId, int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        if (categoryId == 0){
+            return productRepository.findAll(pageable);
+        }
+        return productRepository.findByCategoryId(categoryId, pageable);
+    }
+
+    @Override
+    public Optional<Product> getById(Integer id) {
+        return productRepository.findById(id);
+    }
+
+    @Override
+    public void save(Product product) {
+        productRepository.save(product);
+    }
+
+    @Override
+    public void update(Product product) {
+        productRepository.save(product);
+    }
+
+    @Override
+    public void delete(Product product) {
+        productRepository.delete(product);
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        productRepository.deleteById(id);
     }
 
     @Override
