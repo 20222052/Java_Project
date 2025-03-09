@@ -74,6 +74,8 @@ public class HomeCartController {
             totalPrice += cart.getPrice() * cart.getQuantity();
         }
 
+
+
         // Thêm giỏ hàng và thông tin khách hàng vào model để hiển thị
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("lst_prd", lst_prd);
