@@ -43,6 +43,9 @@ public class Customer {
     @Size(min = 8,max = 100, message = "Mật khẩu phải nằm trong khoảng 8 đến 100 kí tự")
     private String password;
 
+    @Transient
+    private String confirmPassword;
+
     @Column()
     private Date emailVerifiedAt;
 
